@@ -6,6 +6,7 @@ import useFetch from "./hooks/useFetch";
 import { QueryClient, QueryClientProvider } from "react-query";
 import axios from "axios";
 import { useQuery } from "react-query";
+import FilterBox from "./components/FilterBox";
 
 function App() {
   const { jobOffers } = useFetch();
@@ -13,9 +14,10 @@ function App() {
 
   console.log(jobOffers);
   return (
-    <div className="App">
+    <div className="flex flex-col items-center w-full">
       <QueryClientProvider client={queryClient}>
         <Navbar />
+        <FilterBox />
       </QueryClientProvider>
     </div>
   );
