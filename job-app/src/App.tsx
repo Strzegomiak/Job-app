@@ -7,18 +7,17 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import axios from "axios";
 import { useQuery } from "react-query";
 import FilterBox from "./components/FilterBox";
+import JobsPanel from "./components/JobsPanel";
 
 function App() {
-  const { jobOffers } = useFetch();
-  const queryClient = new QueryClient({});
+  // const { jobOffers } = useFetch();
 
-  console.log(jobOffers);
+  // console.log(jobOffers);
   return (
     <div className="flex flex-col items-center w-full">
-      <QueryClientProvider client={queryClient}>
-        <Navbar />
-        <FilterBox />
-      </QueryClientProvider>
+      <Navbar />
+      <FilterBox />
+      <JobsPanel />
     </div>
   );
 }

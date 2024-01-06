@@ -6,10 +6,16 @@ const useFetch = () => {
     const res = await axios.get(
       "https://job-app-88989-default-rtdb.europe-west1.firebasedatabase.app/jobs-offers.json"
     );
-    return res.data;
+    const jobOffers = Object.values(res.data);
+
+    return jobOffers;
   };
-  const { data, isError, isLoading } = useQuery("jobOffers", getOffers);
-  const jobOffers = [data];
+  const {
+    data: jobOffers,
+    isError,
+    isLoading,
+  } = useQuery("jobOffers", getOffers);
+
   return { jobOffers };
 };
 
