@@ -1,6 +1,7 @@
 import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
 import TemporaryDrawer from "./TemporaryDrawer";
+import logo from "../jobsLogo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,13 +11,13 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex m-4 justify-around">
-      <h2>LOGO</h2>
-      <div onClick={hangleDrawer} className="hidden max-md:block">
+    <nav className="flex m-4 justify-between w-11/12 py-8">
+      <img className="h-8" src={logo}></img>
+      <div onClick={hangleDrawer} className="hidden max-lg:block">
         <MenuIcon />
       </div>
       <TemporaryDrawer isOpen={isOpen} hangleDrawer={hangleDrawer} />
-      <ul className="flex max-md:hidden gap-10 max-lg:gap-5">
+      <ul className="flex max-lg:hidden gap-10 max-lg:gap-5 text-gray-600">
         <li>
           <a>Jobs</a>
         </li>

@@ -14,7 +14,7 @@ function App() {
 
   // console.log(jobOffers);
   return (
-    <div className="flex flex-col items-center w-full">
+    <div className="flex justify-center items-center flex-col mr-36 ml-36 ">
       <Navbar />
       <FilterBox />
       <JobsPanel />
