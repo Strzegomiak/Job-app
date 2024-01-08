@@ -2,6 +2,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
 import TemporaryDrawer from "./TemporaryDrawer";
 import logo from "../jobsLogo.png";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,9 +37,11 @@ const Navbar = () => {
         <li>
           <a>Login</a>
         </li>
-        <li>
-          <a>Register</a>
-        </li>
+        <Link to={"/register"}>
+          <li>
+            <a>Register</a>
+          </li>
+        </Link>
       </ul>
     </nav>
   );
