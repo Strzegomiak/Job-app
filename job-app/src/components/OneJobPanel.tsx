@@ -1,5 +1,19 @@
+interface TwoJobPanelProps {
+  Categories: string;
+  Description: string;
+  JobName: string;
+  Name: string;
+  Sallary: number;
+  Type: string;
+  country: string;
+  email: string;
+  id: number;
+  levelOfExpirience: string;
+  workType: string;
+}
+
 interface OneJobPanelProps {
-  singleJob: any; // sporoboj zrobić obiekt wewnatrz z wlasnosciami czy dziala
+  singleJob: TwoJobPanelProps;
 }
 
 const OneJobPanel: React.FC<OneJobPanelProps> = ({ singleJob }) => {
