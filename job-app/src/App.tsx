@@ -13,9 +13,6 @@ import Home from "./Pages/Home";
 import Register from "./Pages/Register";
 
 function App() {
-  // const { jobOffers } = useFetch();
-
-  // console.log(jobOffers);
   return (
     <div className="flex justify-center items-center flex-col mr-36 ml-36 ">
       <BrowserRouter>

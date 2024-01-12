@@ -4,7 +4,7 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-const MainFilter = () => {
+const MainFilter = (props: any) => {
   interface IFormInput {
     title: string;
     company: string;
@@ -20,6 +20,7 @@ const MainFilter = () => {
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     console.log(data);
+    props.passDataFromMain(data);
   };
 
   const handleReset = (fieldName: string) => {
@@ -30,21 +31,18 @@ const MainFilter = () => {
 
   const registerOption = {
     title: {
-      required: "title is required",
       minLength: {
         value: minInputLength,
         message: `title must have at least ${minInputLength} characters`,
       },
     },
     company: {
-      required: "company is required",
       minLength: {
         value: minInputLength,
         message: `company must have at least ${minInputLength} characters`,
       },
     },
     location: {
-      required: "location is required",
       minLength: {
         value: minInputLength,
         message: `location must have at least ${minInputLength} characters`,
