@@ -3,6 +3,7 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 const MainFilter = (props: any) => {
   interface IFormInput {
@@ -20,7 +21,7 @@ const MainFilter = (props: any) => {
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     console.log(data);
-    props.passDataFromMain(data);
+    props.passDataFromMain(data, props.selectValue);
   };
 
   const handleReset = (fieldName: string) => {
@@ -61,7 +62,7 @@ const MainFilter = (props: any) => {
           <input
             className="h-16 w-32 2xl:w-52 outline-none focus:outline-none"
             type="text"
-            placeholder="Ui designer"
+            placeholder="Name it"
             {...register("title", registerOption.title)}
           ></input>
           <button type="button" onClick={() => handleReset("title")}>
@@ -74,7 +75,7 @@ const MainFilter = (props: any) => {
           <input
             className="h-16 w-32 2xl:w-52 outline-none focus:outline-none"
             type="text"
-            placeholder="Name it"
+            placeholder="Company"
             {...register("company", registerOption.company)}
           ></input>
           <button type="button" onClick={() => handleReset("company")}>
@@ -95,6 +96,7 @@ const MainFilter = (props: any) => {
           </button>
           {errors.location?.message}
         </div>
+
         <button
           className="h-16 bg-blue-600  rounded-xl text-white w-32"
           type="submit"

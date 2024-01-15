@@ -19,34 +19,47 @@ const Home = () => {
     workType: string;
   }
   const { jobOffers } = useFetch();
-  const [copyOfJobOffers, setCopyOfJobOffers] = useState();
+  // const [copyOfJobOffers, setCopyOfJobOffers] = useState(jobOffers);
 
-  console.log(copyOfJobOffers);
+  const passDataFromMain = (inputVaue: any, sortValue: any) => {
+    let copyOfJobOffers = jobOffers;
 
-  const passDataFromMain = (inputVaue: any) => {
-    const copyOfJobOffers = passDataToJobsPanel(inputVaue);
-    setCopyOfJobOffers(copyOfJobOffers);
-  };
-
-  const passDataToJobsPanel = (inputVaue: any) => {
-    const copyOfJobOffers = jobOffers?.filter((singleOffer: any) => {
-      return (
-        (inputVaue.company &&
-          singleOffer.Name.toUpperCase().includes(inputVaue.company)) ||
-        (inputVaue.location &&
-          singleOffer.country.toUpperCase().includes(inputVaue.location)) ||
-        (inputVaue.title &&
-          singleOffer.JobName.toUpperCase().includes(inputVaue.title))
-      );
-    });
-    return copyOfJobOffers || [];
+    if (inputVaue.title) {
+      copyOfJobOffers = copyOfJobOffers?.filter((singleOffer: any) => {
+        return singleOffer.JobName.toUpperCase().includes(
+          inputVaue.title.toUpperCase()
+        );
+      });
+    }
+    if (inputVaue.company) {
+      copyOfJobOffers = copyOfJobOffers?.filter((singleOffer: any) => {
+        return singleOffer.Name.toUpperCase().includes(
+          inputVaue.company.toUpperCase()
+        );
+      });
+    }
+    if (inputVaue.location) {
+      copyOfJobOffers = copyOfJobOffers?.filter((singleOffer: any) => {
+        return singleOffer.country
+          .toUpperCase()
+          .includes(inputVaue.location.toUpperCase());
+      });
+    }
+    if (sortValue.categories) {
+      copyOfJobOffers = copyOfJobOffers?.filter((singleOffer: any) => {
+        return singleOffer.Categories.toUpperCase().includes(
+          sortValue.categories.toUpperCase()
+        );
+      });
+    }
+    console.log(copyOfJobOffers);
   };
 
   return (
     <>
       <Navbar />
       <FilterBox passDataFromMain={passDataFromMain} />
-      <JobsPanel copyOfJobOffers={copyOfJobOffers} />
+      <JobsPanel />
     </>
   );
 };
