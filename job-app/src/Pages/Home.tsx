@@ -2,7 +2,7 @@ import JobsPanel from "../components/JobsPanel";
 import Navbar from "../components/Navbar";
 import FilterBox from "../components/FilterBox";
 import useFetch from "../hooks/useFetch";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Home = () => {
   interface IJobOffers {
@@ -19,10 +19,17 @@ const Home = () => {
     workType: string;
   }
   const { jobOffers } = useFetch();
-  // const [copyOfJobOffers, setCopyOfJobOffers] = useState(jobOffers);
+  const [copyOfJobOffers, setCopyOfJobOffers] = useState(jobOffers);
+  useEffect(() => {
+    setCopyOfJobOffers(jobOffers);
+  }, [jobOffers]);
 
   const passDataFromMain = (inputVaue: any, sortValue: any) => {
-    let copyOfJobOffers = jobOffers;
+    let copyOfJobOffers = jobOffers ? [...jobOffers] : [];
+    if (!copyOfJobOffers) {
+      // Obsługa przypadku, gdy jobOffers jest undefined
+      return [];
+    }
 
     if (inputVaue.title) {
       copyOfJobOffers = copyOfJobOffers?.filter((singleOffer: any) => {
@@ -52,14 +59,31 @@ const Home = () => {
         );
       });
     }
-    console.log(copyOfJobOffers);
+
+    if (sortValue.type) {
+      copyOfJobOffers = copyOfJobOffers?.filter((singleOffer: any) => {
+        return singleOffer.Type.toUpperCase().includes(
+          sortValue.type.toUpperCase()
+        );
+      });
+    }
+
+    if (sortValue.level) {
+      copyOfJobOffers = copyOfJobOffers?.filter((singleOffer: any) => {
+        return singleOffer.levelOfExpirience
+          .toUpperCase()
+          .includes(sortValue.level.toUpperCase());
+      });
+    }
+
+    return setCopyOfJobOffers(copyOfJobOffers);
   };
 
   return (
     <>
       <Navbar />
       <FilterBox passDataFromMain={passDataFromMain} />
-      <JobsPanel />
+      <JobsPanel copyOfJobOffers={copyOfJobOffers} />
     </>
   );
 };

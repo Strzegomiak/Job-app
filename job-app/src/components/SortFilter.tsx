@@ -10,6 +10,7 @@ const SortFilter = (props: any) => {
   const {
     register,
     handleSubmit,
+    reset,
     watch,
     formState: { errors },
   } = useForm<Inputs>();
@@ -17,6 +18,14 @@ const SortFilter = (props: any) => {
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     console.log(data);
     props.passDataFormSort(data);
+  };
+
+  const handleReset = (fieldNames: string[]) => {
+    const resetValues: any = {};
+    fieldNames.forEach((fieldName) => {
+      resetValues[fieldName] = "";
+    });
+    reset(resetValues);
   };
 
   return (
@@ -66,7 +75,11 @@ const SortFilter = (props: any) => {
             </select>{" "}
           </button>
         </div>
-        <button className="text-gray-400 ml-5" type="button">
+        <button
+          onClick={() => handleReset(["categories", "type", "level"])}
+          className="text-gray-400 ml-5"
+          type="button"
+        >
           Clear All
         </button>
       </div>
