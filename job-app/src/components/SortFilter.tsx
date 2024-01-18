@@ -26,6 +26,7 @@ const SortFilter = (props: any) => {
       resetValues[fieldName] = "";
     });
     reset(resetValues);
+    props.passDataFormSort({ categories: "", type: "", level: "" });
   };
 
   return (
