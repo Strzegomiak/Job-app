@@ -1,8 +1,6 @@
-import useFetch from "../hooks/useFetch";
 import OneJobPanel from "./OneJobPanel";
 
 const JobsPanel = (props: any) => {
-  const { jobOffers } = useFetch();
   console.log(props.copyOfJobOffers);
 
   return (

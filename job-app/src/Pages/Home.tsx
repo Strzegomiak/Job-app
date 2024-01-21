@@ -2,7 +2,7 @@ import JobsPanel from "../components/JobsPanel";
 import Navbar from "../components/Navbar";
 import FilterBox from "../components/FilterBox";
 import useFetch from "../hooks/useFetch";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const Home = () => {
   interface IJobOffers {
@@ -10,21 +10,40 @@ const Home = () => {
     Description: string;
     JobName: string;
     Name: string;
-    Sallary: Number;
+    Sallary: number;
     Type: string;
     country: string;
     email: string;
-    id: Number;
+    id: number;
     levelOfExpirience: string;
     workType: string;
   }
-  const { jobOffers } = useFetch();
-  const [copyOfJobOffers, setCopyOfJobOffers] = useState(jobOffers);
+
+  interface IFormInput {
+    title: string;
+    company: string;
+    location: string;
+  }
+
+  type PropsSortValue = {
+    categories: string;
+    type: string;
+    level: string;
+  };
+
+  const { jobOffers }: { jobOffers: IJobOffers[] | undefined } = useFetch();
+  const [copyOfJobOffers, setCopyOfJobOffers] = useState<
+    IJobOffers[] | undefined
+  >(jobOffers);
+
   useEffect(() => {
     setCopyOfJobOffers(jobOffers);
   }, [jobOffers]);
 
-  const passDataFromMain = (inputVaue: any, sortValue: any) => {
+  const passDataFromMain = (
+    inputVaue: IFormInput,
+    sortValue: PropsSortValue
+  ) => {
     let copyOfJobOffers = jobOffers ? [...jobOffers] : [];
     if (!copyOfJobOffers) {
       // Obsługa przypadku, gdy jobOffers jest undefined
@@ -32,28 +51,28 @@ const Home = () => {
     }
 
     if (inputVaue.title) {
-      copyOfJobOffers = copyOfJobOffers?.filter((singleOffer: any) => {
+      copyOfJobOffers = copyOfJobOffers?.filter((singleOffer: IJobOffers) => {
         return singleOffer.JobName.toUpperCase().includes(
           inputVaue.title.toUpperCase()
         );
       });
     }
     if (inputVaue.company) {
-      copyOfJobOffers = copyOfJobOffers?.filter((singleOffer: any) => {
+      copyOfJobOffers = copyOfJobOffers?.filter((singleOffer: IJobOffers) => {
         return singleOffer.Name.toUpperCase().includes(
           inputVaue.company.toUpperCase()
         );
       });
     }
     if (inputVaue.location) {
-      copyOfJobOffers = copyOfJobOffers?.filter((singleOffer: any) => {
+      copyOfJobOffers = copyOfJobOffers?.filter((singleOffer: IJobOffers) => {
         return singleOffer.country
           .toUpperCase()
           .includes(inputVaue.location.toUpperCase());
       });
     }
     if (sortValue.categories) {
-      copyOfJobOffers = copyOfJobOffers?.filter((singleOffer: any) => {
+      copyOfJobOffers = copyOfJobOffers?.filter((singleOffer: IJobOffers) => {
         return singleOffer.Categories.toUpperCase().includes(
           sortValue.categories.toUpperCase()
         );
@@ -61,7 +80,7 @@ const Home = () => {
     }
 
     if (sortValue.type) {
-      copyOfJobOffers = copyOfJobOffers?.filter((singleOffer: any) => {
+      copyOfJobOffers = copyOfJobOffers?.filter((singleOffer: IJobOffers) => {
         return singleOffer.Type.toUpperCase().includes(
           sortValue.type.toUpperCase()
         );
@@ -69,7 +88,7 @@ const Home = () => {
     }
 
     if (sortValue.level) {
-      copyOfJobOffers = copyOfJobOffers?.filter((singleOffer: any) => {
+      copyOfJobOffers = copyOfJobOffers?.filter((singleOffer: IJobOffers) => {
         return singleOffer.levelOfExpirience
           .toUpperCase()
           .includes(sortValue.level.toUpperCase());

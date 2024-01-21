@@ -1,16 +1,21 @@
 import { useState } from "react";
 import MainFilter from "./MainFilter";
 import SortFilter from "./SortFilter";
-import SortBox from "./SortFilter";
 
 const FilterBox = (props: any) => {
+  type PropsSortValue = {
+    categories: string;
+    type: string;
+    level: string;
+  };
+
   const [selectValue, setSelectValue] = useState({
     categories: "",
     type: "",
     level: "",
   });
 
-  const passDataFormSort = (sortValue: any) => {
+  const passDataFormSort = (sortValue: PropsSortValue) => {
     const selectValue = {
       categories: sortValue.categories,
       type: sortValue.type,
