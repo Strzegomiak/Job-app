@@ -7,7 +7,7 @@ interface IdefaultState {
   deleteFavorites(id: number): void;
 }
 
-interface IwishListProvider {
+interface IWishListProvider {
   children: React.ReactNode;
 }
 
@@ -18,7 +18,7 @@ const defaultState: IdefaultState = {
 };
 
 const WishListContext = createContext(defaultState);
-export const wishListProvider = ({ children }: IwishListProvider) => {
+export const WishListProvider = ({ children }: IWishListProvider) => {
   const [favOffers, setFavOffers] = useState<IJobOffers[]>([]);
   const addToFavorites = (offer: IJobOffers) => {
     const findOffer = favOffers.find((e) => e.id === offer.id);
@@ -30,7 +30,7 @@ export const wishListProvider = ({ children }: IwishListProvider) => {
     const newOffers = favOffers.filter((e) => e.id !== id);
     setFavOffers(newOffers);
   };
-
+  console.log(favOffers);
   return (
     <WishListContext.Provider
       value={{ favOffers, addToFavorites, deleteFavorites }}

@@ -4,7 +4,7 @@ import Home from "./Pages/Home";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
 import SingleJob from "./Pages/SingleJob";
-import { WishListProvider } from "./context/wishListContext";
+import { WishListProvider } from "./context/WishListContext";
 
 function App() {
   return (
