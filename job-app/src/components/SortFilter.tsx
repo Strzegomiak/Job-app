@@ -1,12 +1,11 @@
 import { SubmitHandler, useForm } from "react-hook-form";
+import { PropsSortValue, Inputs } from "../types/types";
 
-const SortFilter = (props: any) => {
-  type Inputs = {
-    categories: string;
-    type: string;
-    level: string;
-  };
+interface SortFilterProps {
+  passDataFormSort: (sortValue: PropsSortValue) => void;
+}
 
+const SortFilter: React.FC<SortFilterProps> = (props) => {
   const {
     register,
     handleSubmit,

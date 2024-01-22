@@ -1,14 +1,13 @@
 import { useState } from "react";
 import MainFilter from "./MainFilter";
 import SortFilter from "./SortFilter";
+import { IFormInput, PropsSortValue } from "../types/types";
 
-const FilterBox = (props: any) => {
-  type PropsSortValue = {
-    categories: string;
-    type: string;
-    level: string;
-  };
+interface FilteBoxProps {
+  passDataFromMain: (inputVaue: IFormInput, sortValue: PropsSortValue) => void;
+}
 
+const FilterBox: React.FC<FilteBoxProps> = (props) => {
   const [selectValue, setSelectValue] = useState({
     categories: "",
     type: "",

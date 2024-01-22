@@ -3,34 +3,9 @@ import Navbar from "../components/Navbar";
 import FilterBox from "../components/FilterBox";
 import useFetch from "../hooks/useFetch";
 import { useEffect, useState } from "react";
+import { IFormInput, IJobOffers, PropsSortValue } from "../types/types";
 
 const Home = () => {
-  interface IJobOffers {
-    Categories: string;
-    Description: string;
-    JobName: string;
-    Name: string;
-    Sallary: number;
-    Type: string;
-    country: string;
-    email: string;
-    id: number;
-    levelOfExpirience: string;
-    workType: string;
-  }
-
-  interface IFormInput {
-    title: string;
-    company: string;
-    location: string;
-  }
-
-  type PropsSortValue = {
-    categories: string;
-    type: string;
-    level: string;
-  };
-
   const { jobOffers }: { jobOffers: IJobOffers[] | undefined } = useFetch();
   const [copyOfJobOffers, setCopyOfJobOffers] = useState<
     IJobOffers[] | undefined

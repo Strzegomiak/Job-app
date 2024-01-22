@@ -4,14 +4,15 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import React from "react";
+import { IFormInput, PropsSortValue } from "../types/types";
 
-const MainFilter = (props: any) => {
-  interface IFormInput {
-    title: string;
-    company: string;
-    location: string;
-  }
+interface MainFIlterProps {
+  passDataFromMain: (data: IFormInput, selectValue: PropsSortValue) => void;
+  selectValue: PropsSortValue;
+}
 
+const MainFilter: React.FC<MainFIlterProps> = (props) => {
   const {
     register,
     handleSubmit,

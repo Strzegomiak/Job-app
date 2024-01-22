@@ -1,12 +1,17 @@
 import OneJobPanel from "./OneJobPanel";
+import { IJobOffers } from "../types/types";
 
-const JobsPanel = (props: any) => {
+interface JobsPanelProps {
+  copyOfJobOffers: IJobOffers[] | undefined;
+}
+
+const JobsPanel: React.FC<JobsPanelProps> = (props) => {
   console.log(props.copyOfJobOffers);
 
   return (
     <ul className="flex justify-center w-4/5 flex-auto gap-14 mt-10  flex-wrap">
       {props.copyOfJobOffers ? (
-        props.copyOfJobOffers.map((singleJob: any) => (
+        props.copyOfJobOffers.map((singleJob) => (
           <li key={singleJob.id}>
             <OneJobPanel singleJob={singleJob} />
           </li>
