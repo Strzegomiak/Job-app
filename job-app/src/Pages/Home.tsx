@@ -70,7 +70,7 @@ const Home = () => {
       });
     }
 
-    return setCopyOfJobOffers(copyOfJobOffers);
+    setCopyOfJobOffers(copyOfJobOffers);
   };
 
   return (
