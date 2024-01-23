@@ -25,8 +25,12 @@ const MainFilter: React.FC<MainFIlterProps> = (props) => {
     props.passDataFromMain(data, props.selectValue);
   };
 
-  const handleReset = (fieldName: string) => {
-    reset({ [fieldName]: "" }); // Resetuje tylko określony input
+  const handleReset = (fieldNames: string[]) => {
+    const resetValues: any = {};
+    fieldNames.forEach((fieldName: string) => {
+      resetValues[fieldName] = "";
+    });
+    reset(resetValues);
   };
 
   const minInputLength = 3;
@@ -66,7 +70,7 @@ const MainFilter: React.FC<MainFIlterProps> = (props) => {
             placeholder="Name it"
             {...register("title", registerOption.title)}
           ></input>
-          <button type="button" onClick={() => handleReset("title")}>
+          <button type="button" onClick={() => handleReset(["title"])}>
             <CancelOutlinedIcon className="text-gray-400" />
           </button>
           {errors.title?.message}
@@ -79,7 +83,7 @@ const MainFilter: React.FC<MainFIlterProps> = (props) => {
             placeholder="Company"
             {...register("company", registerOption.company)}
           ></input>
-          <button type="button" onClick={() => handleReset("company")}>
+          <button type="button" onClick={() => handleReset(["company"])}>
             <CancelOutlinedIcon className="text-gray-400" />
           </button>
           {errors.company?.message}
@@ -92,7 +96,7 @@ const MainFilter: React.FC<MainFIlterProps> = (props) => {
             placeholder="Desired Location"
             {...register("location", registerOption.location)}
           ></input>
-          <button type="button" onClick={() => handleReset("location")}>
+          <button type="button" onClick={() => handleReset(["location"])}>
             <CancelOutlinedIcon className="text-gray-400" />
           </button>
           {errors.location?.message}

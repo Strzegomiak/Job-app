@@ -1,8 +1,9 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { PropsSortValue, Inputs } from "../types/types";
+import { PropsSortValue, Inputs, IFormInput } from "../types/types";
 
 interface SortFilterProps {
   passDataFormSort: (sortValue: PropsSortValue) => void;
+  passDataFromMain: (data: IFormInput, selectValue: PropsSortValue) => void;
 }
 
 const SortFilter: React.FC<SortFilterProps> = (props) => {
@@ -25,7 +26,10 @@ const SortFilter: React.FC<SortFilterProps> = (props) => {
       resetValues[fieldName] = "";
     });
     reset(resetValues);
-    props.passDataFormSort({ categories: "", type: "", level: "" });
+    props.passDataFromMain(
+      { title: "", company: "", location: "" },
+      { categories: "", type: "", level: "" }
+    );
   };
 
   return (

@@ -1,23 +1,10 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import WishListContext from "../context/WishListContext";
-
-interface TwoJobPanelProps {
-  Categories: string;
-  Description: string;
-  JobName: string;
-  Name: string;
-  Sallary: number;
-  Type: string;
-  country: string;
-  email: string;
-  id: number;
-  levelOfExpirience: string;
-  workType: string;
-}
+import { IJobOffers } from "../types/types";
 
 interface OneJobPanelProps {
-  singleJob: TwoJobPanelProps;
+  singleJob: IJobOffers;
 }
 
 const OneJobPanel: React.FC<OneJobPanelProps> = ({ singleJob }) => {

@@ -29,7 +29,10 @@ const FilterBox: React.FC<FilteBoxProps> = (props) => {
         passDataFromMain={props.passDataFromMain}
         selectValue={selectValue}
       />
-      <SortFilter passDataFormSort={passDataFormSort} />
+      <SortFilter
+        passDataFormSort={passDataFormSort}
+        passDataFromMain={props.passDataFromMain}
+      />
     </div>
   );
 };
