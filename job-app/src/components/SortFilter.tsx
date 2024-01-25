@@ -4,6 +4,7 @@ import { PropsSortValue, Inputs, IFormInput } from "../types/types";
 interface SortFilterProps {
   passDataFormSort: (sortValue: PropsSortValue) => void;
   passDataFromMain: (data: IFormInput, selectValue: PropsSortValue) => void;
+  xxx: boolean;
 }
 
 const SortFilter: React.FC<SortFilterProps> = (props) => {
@@ -30,6 +31,7 @@ const SortFilter: React.FC<SortFilterProps> = (props) => {
       { title: "", company: "", location: "" },
       { categories: "", type: "", level: "" }
     );
+    props.xxx(true);
   };
 
   return (

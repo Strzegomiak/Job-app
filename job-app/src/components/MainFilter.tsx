@@ -10,6 +10,7 @@ import { IFormInput, PropsSortValue } from "../types/types";
 interface MainFIlterProps {
   passDataFromMain: (data: IFormInput, selectValue: PropsSortValue) => void;
   selectValue: PropsSortValue;
+  yyy: boolean;
 }
 
 const MainFilter: React.FC<MainFIlterProps> = (props) => {
@@ -32,6 +33,11 @@ const MainFilter: React.FC<MainFIlterProps> = (props) => {
     });
     reset(resetValues);
   };
+
+  if (props.yyy) {
+    handleReset(["title", "company", "location"]);
+    props.yyy = false;
+  }
 
   const minInputLength = 3;
 

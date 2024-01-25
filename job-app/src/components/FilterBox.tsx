@@ -23,6 +23,12 @@ const FilterBox: React.FC<FilteBoxProps> = (props) => {
     setSelectValue(selectValue);
   };
 
+  let yyy: string[] | undefined;
+
+  const xxx = (inputs = null) => {
+    yyy = inputs;
+  };
+
   return (
     <div className="bg-gray-100 flex w-full h-1/5 -mx-48 justify-center flex-col rounded-xl py-10">
       <MainFilter
@@ -32,6 +38,7 @@ const FilterBox: React.FC<FilteBoxProps> = (props) => {
       <SortFilter
         passDataFormSort={passDataFormSort}
         passDataFromMain={props.passDataFromMain}
+        xxx={xxx}
       />
     </div>
   );
