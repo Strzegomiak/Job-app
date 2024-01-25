@@ -4,13 +4,14 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import React from "react";
+import React, { useEffect } from "react";
 import { IFormInput, PropsSortValue } from "../types/types";
 
 interface MainFIlterProps {
   passDataFromMain: (data: IFormInput, selectValue: PropsSortValue) => void;
   selectValue: PropsSortValue;
-  yyy: boolean;
+  isClearAllButtonClilked: boolean;
+  setIsClearAllButtonClilked: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const MainFilter: React.FC<MainFIlterProps> = (props) => {
@@ -34,10 +35,12 @@ const MainFilter: React.FC<MainFIlterProps> = (props) => {
     reset(resetValues);
   };
 
-  if (props.yyy) {
-    handleReset(["title", "company", "location"]);
-    props.yyy = false;
-  }
+  useEffect(() => {
+    if (props.isClearAllButtonClilked) {
+      handleReset(["title", "company", "location"]);
+      props.setIsClearAllButtonClilked(false);
+    }
+  }, [props.isClearAllButtonClilked]);
 
   const minInputLength = 3;
 

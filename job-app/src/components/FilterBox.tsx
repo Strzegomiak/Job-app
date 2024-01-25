@@ -14,6 +14,8 @@ const FilterBox: React.FC<FilteBoxProps> = (props) => {
     level: "",
   });
 
+  const [isClearAllButtonClilked, setIsClearAllButtonClilked] = useState(false);
+
   const passDataFormSort = (sortValue: PropsSortValue) => {
     const selectValue = {
       categories: sortValue.categories,
@@ -23,10 +25,8 @@ const FilterBox: React.FC<FilteBoxProps> = (props) => {
     setSelectValue(selectValue);
   };
 
-  let yyy: string[] | undefined;
-
-  const xxx = (inputs = null) => {
-    yyy = inputs;
+  const handleClearAll = () => {
+    setIsClearAllButtonClilked(true);
   };
 
   return (
@@ -34,11 +34,13 @@ const FilterBox: React.FC<FilteBoxProps> = (props) => {
       <MainFilter
         passDataFromMain={props.passDataFromMain}
         selectValue={selectValue}
+        isClearAllButtonClilked={isClearAllButtonClilked}
+        setIsClearAllButtonClilked={setIsClearAllButtonClilked}
       />
       <SortFilter
         passDataFormSort={passDataFormSort}
         passDataFromMain={props.passDataFromMain}
-        xxx={xxx}
+        handleClearAll={handleClearAll}
       />
     </div>
   );
