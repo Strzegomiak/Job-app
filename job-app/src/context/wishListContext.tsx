@@ -4,7 +4,7 @@ import { IJobOffers } from "../types/types";
 interface IdefaultState {
   favOffers: any[];
   addToFavorites(offer: IJobOffers): void;
-  deleteFavorites(id: number): void;
+  deleteFavorites(offer: IJobOffers): void;
 }
 
 interface IWishListProvider {
@@ -14,7 +14,7 @@ interface IWishListProvider {
 const defaultState: IdefaultState = {
   favOffers: [],
   addToFavorites: (offer: IJobOffers) => {},
-  deleteFavorites: (id: number) => {},
+  deleteFavorites: (offer: IJobOffers) => {},
 };
 
 const WishListContext = createContext(defaultState);
@@ -26,8 +26,8 @@ export const WishListProvider = ({ children }: IWishListProvider) => {
       setFavOffers((prev: any) => [...prev, offer]);
     }
   };
-  const deleteFavorites = (id: number) => {
-    const newOffers = favOffers.filter((e) => e.id !== id);
+  const deleteFavorites = (offer: IJobOffers) => {
+    const newOffers = favOffers.filter((e) => e.id !== offer.id);
     setFavOffers(newOffers);
   };
   console.log(favOffers);

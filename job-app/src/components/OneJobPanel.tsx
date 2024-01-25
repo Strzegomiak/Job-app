@@ -8,7 +8,7 @@ interface OneJobPanelProps {
 }
 
 const OneJobPanel: React.FC<OneJobPanelProps> = ({ singleJob }) => {
-  const { addToFavorites } = useContext(WishListContext);
+  const { addToFavorites, deleteFavorites } = useContext(WishListContext);
 
   return (
     <div className="flex flex-col shadow-lg rounded-xl">
@@ -33,6 +33,9 @@ const OneJobPanel: React.FC<OneJobPanelProps> = ({ singleJob }) => {
 
           <button type="button" onClick={() => addToFavorites(singleJob)}>
             Favorites
+          </button>
+          <button type="button" onClick={() => deleteFavorites(singleJob)}>
+            Delete
           </button>
         </div>
       </div>
