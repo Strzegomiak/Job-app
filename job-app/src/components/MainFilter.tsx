@@ -3,7 +3,6 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
 import React, { useEffect } from "react";
 import { IFormInput, PropsSortValue } from "../types/types";
 
@@ -23,7 +22,6 @@ const MainFilter: React.FC<MainFIlterProps> = (props) => {
   } = useForm<IFormInput>();
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    console.log(data);
     props.passDataFromMain(data, props.selectValue);
   };
 

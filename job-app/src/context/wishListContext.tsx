@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 import { IJobOffers } from "../types/types";
 
 interface IdefaultState {
-  favOffers: IJobOffers[];
+  favOffers: any[];
   addToFavorites(offer: IJobOffers): void;
   deleteFavorites(offer: IJobOffers): void;
 }
@@ -30,7 +30,6 @@ export const WishListProvider = ({ children }: IWishListProvider) => {
     const newOffers = favOffers.filter((e) => e.id !== offer.id);
     setFavOffers(newOffers);
   };
-  console.log(favOffers);
   return (
     <WishListContext.Provider
       value={{ favOffers, addToFavorites, deleteFavorites }}

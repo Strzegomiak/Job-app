@@ -128,7 +128,6 @@ const Home = () => {
     setCopyOfJobOffers(copyOfJobOffers);
     setCopyOfFavOffers(copyOfFavOffers);
   };
-  console.log(copyOfFavOffers);
   return (
     <>
       <Navbar />
