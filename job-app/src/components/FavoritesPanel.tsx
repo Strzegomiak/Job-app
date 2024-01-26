@@ -1,15 +1,15 @@
 import OneJobPanel from "./OneJobPanel";
-import { useContext } from "react";
-import WishListContext from "../context/WishListContext";
+import { IJobOffers } from "../types/types";
 
-const FavoritesPanel = () => {
-  const { favOffers } = useContext(WishListContext);
-  console.log(favOffers);
+interface FavoritesPanelProps {
+  copyOfFavOffers: IJobOffers[];
+}
 
+const FavoritesPanel: React.FC<FavoritesPanelProps> = (props) => {
   return (
     <ul className="flex justify-center w-4/5 flex-auto gap-14 mt-10  flex-wrap">
-      {favOffers.length > 0 ? (
-        favOffers.map((singleJob) => (
+      {props.copyOfFavOffers.length > 0 ? (
+        props.copyOfFavOffers.map((singleJob) => (
           <li key={singleJob.id}>
             <OneJobPanel singleJob={singleJob} />
           </li>

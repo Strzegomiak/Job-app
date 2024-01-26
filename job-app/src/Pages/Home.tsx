@@ -6,23 +6,33 @@ import { useContext, useEffect, useState } from "react";
 import { IFormInput, IJobOffers, PropsSortValue } from "../types/types";
 import FavoritesFlagContex from "../context/FavoritesFlagContex";
 import FavoritesPanel from "../components/FavoritesPanel";
+import WishListContext from "../context/WishListContext";
 
 const Home = () => {
   const { favClicked } = useContext(FavoritesFlagContex);
+  const { favOffers } = useContext(WishListContext);
   const { jobOffers }: { jobOffers: IJobOffers[] | undefined } = useFetch();
   const [copyOfJobOffers, setCopyOfJobOffers] = useState<
     IJobOffers[] | undefined
   >(jobOffers);
+  const [copyOfFavOffers, setCopyOfFavOffers] =
+    useState<IJobOffers[]>(favOffers);
 
   useEffect(() => {
     setCopyOfJobOffers(jobOffers);
   }, [jobOffers]);
+
+  useEffect(() => {
+    setCopyOfFavOffers(favOffers);
+  }, [favOffers]);
 
   const passDataFromMain = (
     inputVaue: IFormInput,
     sortValue: PropsSortValue
   ) => {
     let copyOfJobOffers = jobOffers ? [...jobOffers] : [];
+    let copyOfFavOffers = favOffers ? [...favOffers] : [];
+
     if (!copyOfJobOffers) {
       // Obsługa przypadku, gdy jobOffers jest undefined
       return [];
@@ -34,6 +44,13 @@ const Home = () => {
           inputVaue.title.toUpperCase()
         );
       });
+      if (copyOfFavOffers.length > 0) {
+        copyOfFavOffers = copyOfFavOffers?.filter((singleOffer: IJobOffers) => {
+          return singleOffer.JobName.toUpperCase().includes(
+            inputVaue.title.toUpperCase()
+          );
+        });
+      }
     }
     if (inputVaue.company) {
       copyOfJobOffers = copyOfJobOffers?.filter((singleOffer: IJobOffers) => {
@@ -41,6 +58,13 @@ const Home = () => {
           inputVaue.company.toUpperCase()
         );
       });
+      if (copyOfFavOffers.length > 0) {
+        copyOfFavOffers = copyOfFavOffers?.filter((singleOffer: IJobOffers) => {
+          return singleOffer.Name.toUpperCase().includes(
+            inputVaue.company.toUpperCase()
+          );
+        });
+      }
     }
     if (inputVaue.location) {
       copyOfJobOffers = copyOfJobOffers?.filter((singleOffer: IJobOffers) => {
@@ -48,6 +72,13 @@ const Home = () => {
           .toUpperCase()
           .includes(inputVaue.location.toUpperCase());
       });
+      if (copyOfFavOffers.length > 0) {
+        copyOfFavOffers = copyOfFavOffers?.filter((singleOffer: IJobOffers) => {
+          return singleOffer.country
+            .toUpperCase()
+            .includes(inputVaue.location.toUpperCase());
+        });
+      }
     }
     if (sortValue.categories) {
       copyOfJobOffers = copyOfJobOffers?.filter((singleOffer: IJobOffers) => {
@@ -55,6 +86,13 @@ const Home = () => {
           sortValue.categories.toUpperCase()
         );
       });
+      if (copyOfFavOffers.length > 0) {
+        copyOfFavOffers = copyOfFavOffers?.filter((singleOffer: IJobOffers) => {
+          return singleOffer.Categories.toUpperCase().includes(
+            sortValue.categories.toUpperCase()
+          );
+        });
+      }
     }
 
     if (sortValue.type) {
@@ -63,6 +101,13 @@ const Home = () => {
           sortValue.type.toUpperCase()
         );
       });
+      if (copyOfFavOffers.length > 0) {
+        copyOfFavOffers = copyOfFavOffers?.filter((singleOffer: IJobOffers) => {
+          return singleOffer.Type.toUpperCase().includes(
+            sortValue.type.toUpperCase()
+          );
+        });
+      }
     }
 
     if (sortValue.level) {
@@ -71,17 +116,25 @@ const Home = () => {
           .toUpperCase()
           .includes(sortValue.level.toUpperCase());
       });
+      if (copyOfFavOffers.length > 0) {
+        copyOfFavOffers = copyOfFavOffers?.filter((singleOffer: IJobOffers) => {
+          return singleOffer.levelOfExpirience
+            .toUpperCase()
+            .includes(sortValue.level.toUpperCase());
+        });
+      }
     }
 
     setCopyOfJobOffers(copyOfJobOffers);
+    setCopyOfFavOffers(copyOfFavOffers);
   };
-
+  console.log(copyOfFavOffers);
   return (
     <>
       <Navbar />
       <FilterBox passDataFromMain={passDataFromMain} />
       {favClicked ? (
-        <FavoritesPanel />
+        <FavoritesPanel copyOfFavOffers={copyOfFavOffers} />
       ) : (
         <JobsPanel copyOfJobOffers={copyOfJobOffers} />
       )}

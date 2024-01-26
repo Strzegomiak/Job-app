@@ -21,7 +21,6 @@ const SortFilter: React.FC<SortFilterProps> = (props) => {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
     props.passDataFormSort(data);
   };
 
