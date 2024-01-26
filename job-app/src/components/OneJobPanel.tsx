@@ -56,7 +56,7 @@ const OneJobPanel: React.FC<OneJobPanelProps> = ({ singleJob }) => {
             <h2>{singleJob.Name}</h2>
           </Link>
           <button
-            className="bg-white h-12 rounded-xl border-2 border-gray-300 font-bold hover:bg-blue-00"
+            className="bg-white h-12 rounded-xl border-2 border-gray-300 font-bold hover:bg-blue-300"
             type="button"
           >
             Apply Now
