@@ -1,5 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { PropsSortValue, Inputs, IFormInput } from "../types/types";
+import { useContext } from "react";
+import FavoritesFlagContex from "../context/FavoritesFlagContex";
 
 interface SortFilterProps {
   passDataFormSort: (sortValue: PropsSortValue) => void;
@@ -8,6 +10,8 @@ interface SortFilterProps {
 }
 
 const SortFilter: React.FC<SortFilterProps> = (props) => {
+  const { favClicked, setFavClicked } = useContext(FavoritesFlagContex);
+
   const {
     register,
     handleSubmit,
@@ -34,9 +38,19 @@ const SortFilter: React.FC<SortFilterProps> = (props) => {
     props.handleClearAll();
   };
 
+  const handleFav = () => {
+    setFavClicked((prev) => !prev);
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex justify-center  gap-8 pt-10 flex-wrap flex-col md:flex-row ">
+        <button
+          onClick={handleFav}
+          className={`bg-white h-7 rounded-xl border-2 border-gray-300 font-bold w-36 hover:border-gray-500 bg-red-300`}
+        >
+          {favClicked ? "Hide Favorites" : "Show Favorites"}
+        </button>
         <div className="flex gap-2 items-center justify-center">
           <label className=" text-sm font-bold text-gray-500">
             Categories:

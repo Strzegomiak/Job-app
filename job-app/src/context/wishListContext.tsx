@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 import { IJobOffers } from "../types/types";
 
 interface IdefaultState {
-  favOffers: any[];
+  favOffers: IJobOffers[];
   addToFavorites(offer: IJobOffers): void;
   deleteFavorites(offer: IJobOffers): void;
 }

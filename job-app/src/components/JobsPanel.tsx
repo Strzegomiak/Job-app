@@ -6,8 +6,6 @@ interface JobsPanelProps {
 }
 
 const JobsPanel: React.FC<JobsPanelProps> = (props) => {
-  console.log(props.copyOfJobOffers);
-
   return (
     <ul className="flex justify-center w-4/5 flex-auto gap-14 mt-10  flex-wrap">
       {props.copyOfJobOffers ? (

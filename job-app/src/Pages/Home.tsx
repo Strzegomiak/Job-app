@@ -2,10 +2,13 @@ import JobsPanel from "../components/JobsPanel";
 import Navbar from "../components/Navbar";
 import FilterBox from "../components/FilterBox";
 import useFetch from "../hooks/useFetch";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { IFormInput, IJobOffers, PropsSortValue } from "../types/types";
+import FavoritesFlagContex from "../context/FavoritesFlagContex";
+import FavoritesPanel from "../components/FavoritesPanel";
 
 const Home = () => {
+  const { favClicked } = useContext(FavoritesFlagContex);
   const { jobOffers }: { jobOffers: IJobOffers[] | undefined } = useFetch();
   const [copyOfJobOffers, setCopyOfJobOffers] = useState<
     IJobOffers[] | undefined
@@ -77,7 +80,11 @@ const Home = () => {
     <>
       <Navbar />
       <FilterBox passDataFromMain={passDataFromMain} />
-      <JobsPanel copyOfJobOffers={copyOfJobOffers} />
+      {favClicked ? (
+        <FavoritesPanel />
+      ) : (
+        <JobsPanel copyOfJobOffers={copyOfJobOffers} />
+      )}
     </>
   );
 };
