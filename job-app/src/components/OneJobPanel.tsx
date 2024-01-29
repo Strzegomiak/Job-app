@@ -22,7 +22,7 @@ const OneJobPanel: React.FC<OneJobPanelProps> = ({ singleJob }) => {
   const handleDeleteFav = () => {
     deleteFavorites(singleJob);
   };
-
+  console.log(isClickedFav);
   return (
     <div className="flex flex-col shadow-lg rounded-xl">
       <div className="flex flex-col w-64 h-96 p-5 rounded-xl border-b-2 border-gray-300 justify-between">
@@ -34,7 +34,7 @@ const OneJobPanel: React.FC<OneJobPanelProps> = ({ singleJob }) => {
           <div className="flex">
             <button
               className={`bg-white h-7 rounded-xl border-2 border-gray-300 font-bold w-24 hover:border-gray-500 ${
-                isClickedFav ? "bg-red-300" : ""
+                isClickedFav ? "bg-red-200" : ""
               } `}
               type="button"
               onClick={handleFavorites}

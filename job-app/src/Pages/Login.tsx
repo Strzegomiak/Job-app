@@ -1,9 +1,83 @@
+import axios from "axios";
+import { SubmitHandler, useForm } from "react-hook-form";
+import useSign from "../hooks/useSign";
+
+type Inputs = {
+  email: string;
+  password: string;
+};
+
 const Login = () => {
+  const { errorMessage, registerUser } = useSign();
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<Inputs>();
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    console.log(data);
+    registerUser(
+      data.email,
+      data.password,
+      "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDBSpAs6VPkYnzvNlrsemvJuRStbtbjNY8"
+    );
+  };
+
+  // const loginUser = async (email: string, password: string) => {
+  //   try {
+  //     const res = await axios.post(
+  //       "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDBSpAs6VPkYnzvNlrsemvJuRStbtbjNY8",
+  //       {
+  //         email,
+  //         password,
+  //       }
+  //     );
+  //     console.log(res);
+  //   } catch (ex: any) {
+  //     console.log(ex);
+  //   }
+  // };
+
+  const RegisterOptions = {
+    email: {
+      required: "email is required",
+      minLength: {
+        value: 3,
+        message: "email must have at least 3 charactes ",
+      },
+    },
+    password: {
+      required: "password is required",
+      minLength: {
+        value: 6,
+        message: "password must have at least 6 charactes ",
+      },
+    },
+  };
+
   return (
     <div>
-      <input type="text" placeholder="Name/email" />
-      <input type="text" placeholder="Password" />
-      <button type="submit">Submit</button>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input
+          type="text"
+          placeholder="email"
+          {...register("email", RegisterOptions.email)}
+        />
+        <input
+          type="text"
+          placeholder="Password"
+          {...register("password", RegisterOptions.password)}
+        />
+        <button type="submit">Submit</button>
+        {errorMessage === "INVALID_EMAIL" ? <h2>bad email</h2> : null}
+        {errorMessage === "INVALID_PASSWORD" ? <h2>bad password</h2> : null}
+        {errorMessage === "INVALID_LOGIN_CREDENTIALS" ? (
+          <h2>xxxxxxxxxxxxxxx</h2>
+        ) : null}
+      </form>
     </div>
   );
 };

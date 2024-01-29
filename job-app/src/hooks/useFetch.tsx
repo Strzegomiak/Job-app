@@ -30,7 +30,7 @@ const useFetch = () => {
     isLoading,
   } = useQuery<IJobOffers[]>("jobOffers", getOffers);
 
-  return { jobOffers };
+  return { jobOffers, isError, isLoading };
 };
 
 export default useFetch;

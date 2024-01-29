@@ -1,11 +1,15 @@
 import OneJobPanel from "./OneJobPanel";
 import { IJobOffers } from "../types/types";
+import useFetch from "../hooks/useFetch";
 
 interface JobsPanelProps {
   copyOfJobOffers: IJobOffers[] | undefined;
 }
 
 const JobsPanel: React.FC<JobsPanelProps> = (props) => {
+  const { isError, isLoading } = useFetch();
+  if (isLoading) return <h2> Loading...</h2>;
+  if (isError) return <h2>problem with connection</h2>;
   return (
     <ul className="flex justify-center w-4/5 flex-auto gap-14 mt-10  flex-wrap">
       {props.copyOfJobOffers ? (
