@@ -9,7 +9,7 @@ import { FavoritesFlagProvider } from "./context/FavoritesFlagContex";
 
 function App() {
   return (
-    <div className="flex justify-center items-center flex-col mr-36 ml-36 ">
+    <div>
       <FavoritesFlagProvider>
         <WishListProvider>
           <BrowserRouter>

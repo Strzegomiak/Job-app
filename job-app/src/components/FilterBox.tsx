@@ -30,7 +30,7 @@ const FilterBox: React.FC<FilteBoxProps> = (props) => {
   };
 
   return (
-    <div className="bg-gray-100 flex w-full h-1/5 -mx-48 justify-center flex-col rounded-xl py-10">
+    <div className="bg-gray-100 flex w-full h-1/5 justify-center flex-col rounded-xl py-10">
       <MainFilter
         passDataFromMain={props.passDataFromMain}
         selectValue={selectValue}

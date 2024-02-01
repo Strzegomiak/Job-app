@@ -42,14 +42,19 @@ const SortFilter: React.FC<SortFilterProps> = (props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="flex justify-center  gap-8 pt-10 flex-wrap flex-col md:flex-row ">
-        <button
-          onClick={handleFav}
-          className={`bg-white h-7 rounded-xl border-2 border-gray-300 font-bold w-36 hover:border-gray-500 bg-red-200`}
-        >
-          {favClicked ? "Hide Favorites" : "Show Favorites"}
-        </button>
+    <div className="flex justify-center items-center ">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex justify-center gap-8 pt-10 flex-wrap  w-11/12 items-center"
+      >
+        <div className="flex gap-2 items-center justify-center">
+          <button
+            onClick={handleFav}
+            className={`bg-white h-7 rounded-xl border-2 border-gray-300 font-bold w-36 hover:border-gray-500 bg-red-200`}
+          >
+            {favClicked ? "Hide Favorites" : "Show Favorites"}
+          </button>
+        </div>
         <div className="flex gap-2 items-center justify-center">
           <label className=" text-sm font-bold text-gray-500">
             Categories:
@@ -94,15 +99,17 @@ const SortFilter: React.FC<SortFilterProps> = (props) => {
             </select>{" "}
           </button>
         </div>
-        <button
-          onClick={() => handleReset(["categories", "type", "level"])}
-          className="text-gray-400 ml-5"
-          type="button"
-        >
-          Clear All
-        </button>
-      </div>
-    </form>
+        <div className="flex gap-2 items-center justify-center">
+          <button
+            onClick={() => handleReset(["categories", "type", "level"])}
+            className="text-gray-400 ml-5"
+            type="button"
+          >
+            Clear All
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 

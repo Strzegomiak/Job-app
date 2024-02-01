@@ -129,7 +129,10 @@ const Home = () => {
     setCopyOfFavOffers(copyOfFavOffers);
   };
   return (
-    <>
+    <div
+      style={{ minHeight: "1000px" }}
+      className="flex justify-center items-center flex-col mr-36 ml-36 "
+    >
       <Navbar />
       <FilterBox passDataFromMain={passDataFromMain} />
       {favClicked ? (
@@ -137,7 +140,7 @@ const Home = () => {
       ) : (
         <JobsPanel copyOfJobOffers={copyOfJobOffers} />
       )}
-    </>
+    </div>
   );
 };
 

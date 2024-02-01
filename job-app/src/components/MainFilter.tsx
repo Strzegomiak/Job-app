@@ -66,7 +66,7 @@ const MainFilter: React.FC<MainFIlterProps> = (props) => {
   return (
     <div className="flex  justify-center items-center  ">
       <form
-        className="flex flex-col lg:flex-row flex-c w-11/12 justify-between items-center rounded-xl px-10 py-5 shadow-lg bg-white "
+        className="flex flex-col lg:flex-row w-11/12 justify-between items-center rounded-xl px-10 py-5 shadow-lg bg-white"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex gap-4 items-center flex-grow">
