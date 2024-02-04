@@ -97,7 +97,9 @@ const Register = () => {
           />
           {errors.password?.message ? <h2>{errors.password.message}</h2> : null}
           <button type="submit">Submit</button>
-          {errorMessage === "EMAIL_EXISTS" ? <h2>xxxxx</h2> : null}
+          {errorMessage === "EMAIL_EXISTS" ? (
+            <h2>email already in use</h2>
+          ) : null}
         </div>
       </form>
     </div>

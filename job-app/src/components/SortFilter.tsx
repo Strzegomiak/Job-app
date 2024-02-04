@@ -50,7 +50,7 @@ const SortFilter: React.FC<SortFilterProps> = (props) => {
         <div className="flex gap-2 items-center justify-center">
           <button
             onClick={handleFav}
-            className={`bg-white h-7 rounded-xl border-2 border-gray-300 font-bold w-36 hover:border-gray-500 bg-red-200`}
+            className={`bg-white h-7 rounded-xl border-2 border-gray-300 font-bold w-36 hover:border-gray-500 bg-red-300`}
           >
             {favClicked ? "Hide Favorites" : "Show Favorites"}
           </button>

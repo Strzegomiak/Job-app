@@ -26,21 +26,6 @@ const Login = () => {
     );
   };
 
-  // const loginUser = async (email: string, password: string) => {
-  //   try {
-  //     const res = await axios.post(
-  //       "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDBSpAs6VPkYnzvNlrsemvJuRStbtbjNY8",
-  //       {
-  //         email,
-  //         password,
-  //       }
-  //     );
-  //     console.log(res);
-  //   } catch (ex: any) {
-  //     console.log(ex);
-  //   }
-  // };
-
   const RegisterOptions = {
     email: {
       required: "email is required",
@@ -73,9 +58,8 @@ const Login = () => {
         />
         <button type="submit">Submit</button>
         {errorMessage === "INVALID_EMAIL" ? <h2>bad email</h2> : null}
-        {errorMessage === "INVALID_PASSWORD" ? <h2>bad password</h2> : null}
         {errorMessage === "INVALID_LOGIN_CREDENTIALS" ? (
-          <h2>xxxxxxxxxxxxxxx</h2>
+          <h2>bad password</h2>
         ) : null}
       </form>
     </div>
