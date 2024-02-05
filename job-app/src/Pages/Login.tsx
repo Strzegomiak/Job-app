@@ -1,6 +1,8 @@
 import axios from "axios";
 import { SubmitHandler, useForm } from "react-hook-form";
 import useSign from "../hooks/useSign";
+import useLogin from "../hooks/useLogin";
+import { useNavigate } from "react-router-dom";
 
 type Inputs = {
   email: string;
@@ -8,7 +10,9 @@ type Inputs = {
 };
 
 const Login = () => {
-  const { errorMessage, registerUser } = useSign();
+  const { errorMessage, registerUser, setErrorMessage } = useSign();
+  const { login, logout } = useLogin();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -24,6 +28,13 @@ const Login = () => {
       data.password,
       "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDBSpAs6VPkYnzvNlrsemvJuRStbtbjNY8"
     );
+    setErrorMessage("");
+    const user = {
+      auth: true,
+      email: data.email,
+    };
+    login(user);
+    navigate("/");
   };
 
   const RegisterOptions = {
