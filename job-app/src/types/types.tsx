@@ -24,8 +24,24 @@ export interface PropsSortValue {
   level: string;
 }
 
-export interface Inputs {
+export interface ISortInputs {
   categories: string;
   type: string;
   level: string;
+}
+
+export interface ILoginInputs {
+  email: string;
+  password: string;
+}
+
+export interface loginProps {
+  auth: boolean;
+  email: string;
+}
+
+export interface IRegisterInputs {
+  email: string;
+  name: string;
+  password: string;
 }

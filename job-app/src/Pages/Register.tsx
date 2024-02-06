@@ -1,14 +1,7 @@
 import { Alert } from "@mui/material";
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import useSign from "../hooks/useSign";
-
-type Inputs = {
-  email: string;
-  name: string;
-  password: string;
-};
+import { IRegisterInputs } from "../types/types";
 
 const Register = () => {
   const { errorMessage, registerUser } = useSign();
@@ -18,9 +11,9 @@ const Register = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<IRegisterInputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<IRegisterInputs> = (data) => {
     console.log("test");
     registerUser(
       data.email,
@@ -54,6 +47,14 @@ const Register = () => {
         value: 3,
         message: "email must have at least 3 charactes ",
       },
+      maxLength: {
+        value: 30,
+        message: "email is too long",
+      },
+      pattern: {
+        value: /^[^@\s]+@[^@\s]+$/,
+        message: "email must have correct structure one @, no space",
+      },
     },
     name: {
       required: "name is required",
@@ -61,12 +62,20 @@ const Register = () => {
         value: 3,
         message: "name must have at least 3 charactes ",
       },
+      pattern: {
+        value: /^[a-zA-Z0-9]*$/,
+        message: "name must without special symbols, no spaces",
+      },
     },
     password: {
       required: "password is required",
       minLength: {
         value: 6,
-        message: "password must have at least 6 charactes ", //pobawić się dodać w patterns (jedna litera dużza, znak spec itp)
+        message: "password must have at least 6 charactes ",
+      },
+      pattern: {
+        value: /^(?=.*[A-Z])[^\s]*$/,
+        message: "password must have one big letter, no spaces",
       },
     },
   };
@@ -89,13 +98,17 @@ const Register = () => {
             placeholder="Name"
             {...register("name", RegisterOptions.name)}
           />
-          {errors.name?.message ? <h2>{errors.name.message}</h2> : null}
+          {errors.name?.message ? (
+            <Alert severity="error">{errors.name.message}</Alert>
+          ) : null}
           <input
             type="text"
             placeholder="Password"
             {...register("password", RegisterOptions.password)}
           />
-          {errors.password?.message ? <h2>{errors.password.message}</h2> : null}
+          {errors.password?.message ? (
+            <Alert severity="error">{errors.password.message}</Alert>
+          ) : null}
           <button type="submit">Submit</button>
           {errorMessage === "EMAIL_EXISTS" ? (
             <h2>email already in use</h2>

@@ -7,8 +7,7 @@ import useLogin from "../hooks/useLogin";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { login, logout, emailUser, isLogged } = useLogin();
-  console.log(emailUser, isLogged);
+  const { login, logout } = useLogin();
   const [logged, setLogged] = useState(false);
   const user: any = localStorage.getItem("user");
   const userJSON = user !== null ? JSON.parse(user) : null;
@@ -21,7 +20,6 @@ const Navbar = () => {
     logout();
     setLogged(true);
   };
-  // na login dać flagę w zależności czy jest login i odpowiedni napis i Link do login lub do sekcji usera...register lub ,,na szaro"
   return (
     <nav className="flex m-4 justify-between w-11/12 py-8">
       <img className="h-8" src={logo}></img>

@@ -40,7 +40,7 @@ const OneJobPanel: React.FC<OneJobPanelProps> = ({ singleJob }) => {
           <div className="flex">
             <button
               className={`bg-white h-7 rounded-xl border-2 border-gray-300 font-bold w-24 hover:border-gray-500 ${
-                isClickedFav ? "bg-red-200" : ""
+                isClickedFav ? "bg-red-300" : ""
               } `}
               type="button"
               onClick={handleFavorites}
