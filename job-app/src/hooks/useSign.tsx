@@ -3,21 +3,38 @@ import { useState } from "react";
 
 const useSign = () => {
   const [errorMessage, setErrorMessage] = useState("");
-  // tutaj w try za console.log dać sprawdzenei czy to logowanie czy rejstrowanie (sprawdzenie linku ) i wykonanie dopowiednich flag.
-  const registerUser = async (email: string, password: string, url: string) => {
+  const [logingReaction, setLogingReaction] = useState(false);
+  const [rejstrationReaction, setRejstrationReaction] = useState(false);
+  const registerUser = async (
+    email: string,
+    password: string,
+    url: string,
+    operationType: string
+  ) => {
     try {
       const res = await axios.post(url, {
         email,
         password,
         returnSecureToken: true,
       });
+      if (operationType === "loging") {
+        setLogingReaction(true);
+      } else if (operationType === "rejstration") {
+        setRejstrationReaction(true);
+      }
       console.log(res);
     } catch (ex: any) {
       console.log(ex);
       setErrorMessage(ex.response.data.error.message);
     }
   };
-  return { errorMessage, registerUser, setErrorMessage };
+  return {
+    errorMessage,
+    registerUser,
+    setErrorMessage,
+    logingReaction,
+    rejstrationReaction,
+  };
 };
 
 export default useSign;

@@ -16,7 +16,7 @@ const Navbar = () => {
     setIsOpen((prev) => !prev);
   };
 
-  const logout2 = () => {
+  const handleLogout = () => {
     logout();
     setLogged(true);
   };
@@ -57,7 +57,7 @@ const Navbar = () => {
             </Link>
           </div>
         ) : (
-          <button onClick={logout2}>Log out</button>
+          <button onClick={handleLogout}>Log out</button>
         )}
       </ul>
     </nav>

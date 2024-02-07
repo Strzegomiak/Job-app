@@ -2,6 +2,7 @@ import { Alert } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
 import useSign from "../hooks/useSign";
 import { IRegisterInputs } from "../types/types";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const { errorMessage, registerUser } = useSign();
@@ -18,7 +19,8 @@ const Register = () => {
     registerUser(
       data.email,
       data.password,
-      "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDBSpAs6VPkYnzvNlrsemvJuRStbtbjNY8"
+      "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDBSpAs6VPkYnzvNlrsemvJuRStbtbjNY8",
+      "rejstration"
     );
     reset();
   };
@@ -81,40 +83,56 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col">
-          <h1>Registration</h1>
-          <input
-            type="text"
-            placeholder="Email"
-            {...register("email", RegisterOptions.email)}
-          />
-          {errors.email?.message ? (
-            <Alert severity="error">{errors.email.message}</Alert>
-          ) : null}
-          <input
-            type="text"
-            placeholder="Name"
-            {...register("name", RegisterOptions.name)}
-          />
-          {errors.name?.message ? (
-            <Alert severity="error">{errors.name.message}</Alert>
-          ) : null}
-          <input
-            type="text"
-            placeholder="Password"
-            {...register("password", RegisterOptions.password)}
-          />
-          {errors.password?.message ? (
-            <Alert severity="error">{errors.password.message}</Alert>
-          ) : null}
-          <button type="submit">Submit</button>
-          {errorMessage === "EMAIL_EXISTS" ? (
-            <h2>email already in use</h2>
-          ) : null}
-        </div>
-      </form>
+    <div className="flex items-center justify-center w-screen h-screen bg-blue-600">
+      <div className="flex flex-col items-center justify-center min-w-80 w-1/4 h-3/5 shadow-lg rounded-xl p-6 border-gray-300 bg-white ">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col items-center justify-center gap-3 mb-5 "
+        >
+          <div className="flex flex-col">
+            <h1 className="text-5xl text-blue-600 mb-5">Registration.</h1>
+            <input
+              type="text"
+              placeholder="email..."
+              className="h-12 w-72 outline-none focus:outline-none placeholder-blue-300 text-xl rounded-xl border-1 text-blue-300"
+              {...register("email", RegisterOptions.email)}
+            />
+            {errors.email?.message ? (
+              <Alert severity="error">{errors.email.message}</Alert>
+            ) : null}
+            <input
+              type="text"
+              placeholder="name..."
+              className="h-12 w-72 outline-none focus:outline-none placeholder-blue-300 text-xl rounded-xl border-1 text-blue-300"
+              {...register("name", RegisterOptions.name)}
+            />
+            {errors.name?.message ? (
+              <Alert severity="error">{errors.name.message}</Alert>
+            ) : null}
+            <input
+              type="text"
+              placeholder="password..."
+              className="h-12 w-72 outline-none focus:outline-none placeholder-blue-300 text-xl rounded-xl border-1 text-blue-300"
+              {...register("password", RegisterOptions.password)}
+            />
+            {errors.password?.message ? (
+              <Alert severity="error">{errors.password.message}</Alert>
+            ) : null}
+            <button
+              type="submit"
+              className="h-12 w-72 bg-blue-600 rounded-xl text-white w-32 hover:bg-blue-700 mt-3"
+            >
+              Submit
+            </button>
+            {errorMessage === "EMAIL_EXISTS" ? (
+              <h2>email already in use</h2>
+            ) : null}
+          </div>
+        </form>
+        <Link to={"/"}>
+          <h2>Go back to Homepage</h2>
+        </Link>
+      </div>
     </div>
   );
 };

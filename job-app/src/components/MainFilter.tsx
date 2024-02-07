@@ -110,7 +110,7 @@ const MainFilter: React.FC<MainFIlterProps> = (props) => {
         </div>
 
         <button
-          className="h-16 bg-blue-600  rounded-xl text-white w-32"
+          className="h-16 bg-blue-600  rounded-xl text-white w-32 hover:bg-blue-700"
           type="submit"
         >
           Search
