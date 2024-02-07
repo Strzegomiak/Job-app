@@ -4,6 +4,7 @@ import useSign from "../hooks/useSign";
 import useLogin from "../hooks/useLogin";
 import { useNavigate, Link } from "react-router-dom";
 import { Alert } from "@mui/material";
+import { useState } from "react";
 
 type Inputs = {
   email: string;
@@ -20,6 +21,7 @@ const Login = () => {
   } = useSign();
   const { login, logout } = useLogin();
   const navigate = useNavigate();
+  const [currentUserEmail, setCurrentUserEmail] = useState<string>("");
 
   const {
     register,
@@ -37,14 +39,15 @@ const Login = () => {
       "loging"
     );
     setErrorMessage("");
-    const user = {
-      auth: true,
-      email: data.email,
-    };
-    login(user);
+    setCurrentUserEmail(data.email);
   };
 
   if (logingReaction) {
+    const user = {
+      auth: true,
+      email: currentUserEmail,
+    };
+    login(user);
     navigate("/");
   }
 

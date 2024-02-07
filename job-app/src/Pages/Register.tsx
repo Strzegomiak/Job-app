@@ -3,9 +3,18 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import useSign from "../hooks/useSign";
 import { IRegisterInputs } from "../types/types";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const Register = () => {
-  const { errorMessage, registerUser } = useSign();
+  const {
+    errorMessage,
+    registerUser,
+    setErrorMessage,
+    logingReaction,
+    rejstrationReaction,
+  } = useSign();
+
+  const [isRegisterOK, setIsRegisterOK] = useState(false);
 
   const {
     register,
@@ -24,23 +33,12 @@ const Register = () => {
     );
     reset();
   };
-  // const registerUser = async (email: string, password: string) => {
-  //   try {
-  //     const res = await axios.post(
-  //       "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDBSpAs6VPkYnzvNlrsemvJuRStbtbjNY8",
-  //       {
-  //         email,
-  //         password,
-  //         returnSecureToken: true,
-  //       }
-  //     );
-  //     console.log(res);
-  //   } catch (ex: any) {
-  //     console.log(ex);
 
-  //     setErrorMessage(ex.response.data.message);
-  //   }
-  // };
+  useEffect(() => {
+    if (rejstrationReaction) {
+      setIsRegisterOK(true);
+    }
+  }, [rejstrationReaction]);
 
   const RegisterOptions = {
     email: {
@@ -85,50 +83,58 @@ const Register = () => {
   return (
     <div className="flex items-center justify-center w-screen h-screen bg-blue-600">
       <div className="flex flex-col items-center justify-center min-w-80 w-1/4 h-3/5 shadow-lg rounded-xl p-6 border-gray-300 bg-white ">
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col items-center justify-center gap-3 mb-5 "
-        >
-          <div className="flex flex-col">
-            <h1 className="text-5xl text-blue-600 mb-5">Registration.</h1>
-            <input
-              type="text"
-              placeholder="email..."
-              className="h-12 w-72 outline-none focus:outline-none placeholder-blue-300 text-xl rounded-xl border-1 text-blue-300"
-              {...register("email", RegisterOptions.email)}
-            />
-            {errors.email?.message ? (
-              <Alert severity="error">{errors.email.message}</Alert>
-            ) : null}
-            <input
-              type="text"
-              placeholder="name..."
-              className="h-12 w-72 outline-none focus:outline-none placeholder-blue-300 text-xl rounded-xl border-1 text-blue-300"
-              {...register("name", RegisterOptions.name)}
-            />
-            {errors.name?.message ? (
-              <Alert severity="error">{errors.name.message}</Alert>
-            ) : null}
-            <input
-              type="text"
-              placeholder="password..."
-              className="h-12 w-72 outline-none focus:outline-none placeholder-blue-300 text-xl rounded-xl border-1 text-blue-300"
-              {...register("password", RegisterOptions.password)}
-            />
-            {errors.password?.message ? (
-              <Alert severity="error">{errors.password.message}</Alert>
-            ) : null}
-            <button
-              type="submit"
-              className="h-12 w-72 bg-blue-600 rounded-xl text-white w-32 hover:bg-blue-700 mt-3"
-            >
-              Submit
-            </button>
-            {errorMessage === "EMAIL_EXISTS" ? (
-              <h2>email already in use</h2>
-            ) : null}
+        {!isRegisterOK ? (
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col items-center justify-center gap-3 mb-5"
+          >
+            <div className="flex flex-col">
+              <h1 className="text-5xl text-blue-600 mb-5">Registration.</h1>
+              <input
+                type="text"
+                placeholder="email..."
+                className="h-12 w-72 outline-none focus:outline-none placeholder-blue-300 text-xl rounded-xl border-1 text-blue-300"
+                {...register("email", RegisterOptions.email)}
+              />
+              {errors.email?.message ? (
+                <Alert severity="error">{errors.email.message}</Alert>
+              ) : null}
+              <input
+                type="text"
+                placeholder="name..."
+                className="h-12 w-72 outline-none focus:outline-none placeholder-blue-300 text-xl rounded-xl border-1 text-blue-300"
+                {...register("name", RegisterOptions.name)}
+              />
+              {errors.name?.message ? (
+                <Alert severity="error">{errors.name.message}</Alert>
+              ) : null}
+              <input
+                type="text"
+                placeholder="password..."
+                className="h-12 w-72 outline-none focus:outline-none placeholder-blue-300 text-xl rounded-xl border-1 text-blue-300"
+                {...register("password", RegisterOptions.password)}
+              />
+              {errors.password?.message ? (
+                <Alert severity="error">{errors.password.message}</Alert>
+              ) : null}
+              <button
+                type="submit"
+                className="h-12 w-72 bg-blue-600 rounded-xl text-white w-32 hover:bg-blue-700 mt-3"
+              >
+                Submit
+              </button>
+              {errorMessage === "EMAIL_EXISTS" ? (
+                <h2 className="text-xl text-red-600">email already in use</h2>
+              ) : null}
+            </div>
+          </form>
+        ) : (
+          <div>
+            <h1 className="text-4xl text-blue-600 mb-5">
+              Registration complete.
+            </h1>
           </div>
-        </form>
+        )}
         <Link to={"/"}>
           <h2>Go back to Homepage</h2>
         </Link>
