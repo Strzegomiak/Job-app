@@ -8,7 +8,7 @@ import useLogin from "../hooks/useLogin";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { login, logout } = useLogin();
-  const [logged, setLogged] = useState(false);
+  // const [logged, setLogged] = useState(false); < po co, niepotrzebne(?) bo wystarczy że mamy locaStorage puste jeśli chodzi o "user".
   const user: any = localStorage.getItem("user");
   const userJSON = user !== null ? JSON.parse(user) : null;
   console.log(userJSON);
@@ -18,7 +18,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logout();
-    setLogged(true);
+    // setLogged(true);
   };
   return (
     <nav className="flex m-4 justify-between w-11/12 py-8">

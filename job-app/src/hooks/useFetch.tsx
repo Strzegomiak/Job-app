@@ -1,19 +1,6 @@
 import axios from "axios";
 import { useQuery } from "react-query";
-
-interface IJobOffers {
-  Categories: string;
-  Description: string;
-  JobName: string;
-  Name: string;
-  Sallary: number;
-  Type: string;
-  country: string;
-  email: string;
-  id: number;
-  levelOfExpirience: string;
-  workType: string;
-}
+import { IJobOffers } from "../types/types";
 
 const useFetch = () => {
   const getOffers = async () => {
