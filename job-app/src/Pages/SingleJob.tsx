@@ -1,16 +1,24 @@
 import { useParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import { IJobOffers } from "../types/types";
+import { useState } from "react";
+import ApplyJobModal from "../components/ApplyJobModal";
 
 const SingleJob = () => {
   const { id } = useParams();
   const { jobOffers } = useFetch();
+  const [isOpen, setIsOpen] = useState(false);
+
   const choosenOffer: IJobOffers | undefined = jobOffers?.find(
     (job) => job.id === Number(id)
   );
   if (!choosenOffer) {
     return <div>Loading...</div>;
   }
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
   return (
     <div className="flex items-center justify-center w-screen h-screen bg-blue-600">
@@ -44,11 +52,15 @@ const SingleJob = () => {
           <h2 className="pt-4  text-xl">{choosenOffer.Description}</h2>
         </div>
         <button
+          onClick={() => setIsOpen(true)}
           className="bg-white h-12 rounded-xl border-2 border-gray-300 text-xl font-bold hover:bg-blue-300"
           type="button"
         >
           Apply Now
         </button>
+        {isOpen ? (
+          <ApplyJobModal isOpen={isOpen} closeModal={closeModal} />
+        ) : null}
       </div>
     </div>
   );

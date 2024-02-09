@@ -1,4 +1,5 @@
 import { Box, Modal, Typography } from "@mui/material";
+import HorizontalLinearStepper from "./HorizontalLinearStepper";
 
 const ApplyJobModadl = (props: any) => {
   const style = {
@@ -6,7 +7,8 @@ const ApplyJobModadl = (props: any) => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    width: 800,
+    height: 500,
     bgcolor: "background.paper",
     border: "2px solid #000",
     boxShadow: 24,
@@ -25,14 +27,9 @@ const ApplyJobModadl = (props: any) => {
     >
       <Box sx={style}>
         {userJSON ? (
-          <>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography>
-          </>
+          <div>
+            <HorizontalLinearStepper />
+          </div>
         ) : (
           <h2>User must be logged in</h2>
         )}
