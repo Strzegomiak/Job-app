@@ -5,6 +5,7 @@ import useLogin from "../hooks/useLogin";
 import { useNavigate, Link } from "react-router-dom";
 import { Alert } from "@mui/material";
 import { useState } from "react";
+import { IloginProps } from "../types/types";
 
 type Inputs = {
   email: string;
@@ -17,7 +18,7 @@ const Login = () => {
     registerUser,
     setErrorMessage,
     logingReaction,
-    rejstrationReaction,
+    registerReaction,
   } = useSign();
   const { login, logout } = useLogin();
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ const Login = () => {
   };
 
   if (logingReaction) {
-    const user = {
+    const user: IloginProps = {
       auth: true,
       email: currentUserEmail,
     };

@@ -11,7 +11,7 @@ const Register = () => {
     registerUser,
     setErrorMessage,
     logingReaction,
-    rejstrationReaction,
+    registerReaction,
   } = useSign();
 
   const [isRegisterOK, setIsRegisterOK] = useState(false);
@@ -29,16 +29,16 @@ const Register = () => {
       data.email,
       data.password,
       "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDBSpAs6VPkYnzvNlrsemvJuRStbtbjNY8",
-      "rejstration"
+      "register"
     );
     reset();
   };
 
   useEffect(() => {
-    if (rejstrationReaction) {
+    if (registerReaction) {
       setIsRegisterOK(true);
     }
-  }, [rejstrationReaction]);
+  }, [registerReaction]);
 
   const RegisterOptions = {
     email: {

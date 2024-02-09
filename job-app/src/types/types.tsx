@@ -30,12 +30,7 @@ export interface ISortInputs {
   level: string;
 }
 
-export interface ILoginInputs {
-  email: string;
-  password: string;
-}
-
-export interface loginProps {
+export interface IloginProps {
   auth: boolean;
   email: string;
 }

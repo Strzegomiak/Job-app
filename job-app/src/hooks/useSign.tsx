@@ -4,7 +4,7 @@ import { useState } from "react";
 const useSign = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [logingReaction, setLogingReaction] = useState(false);
-  const [rejstrationReaction, setRejstrationReaction] = useState(false);
+  const [registerReaction, setregisterReaction] = useState(false);
   const registerUser = async (
     email: string,
     password: string,
@@ -19,8 +19,8 @@ const useSign = () => {
       });
       if (operationType === "loging") {
         setLogingReaction(true);
-      } else if (operationType === "rejstration") {
-        setRejstrationReaction(true);
+      } else if (operationType === "register") {
+        setregisterReaction(true);
       }
       console.log(res);
     } catch (ex: any) {
@@ -33,7 +33,7 @@ const useSign = () => {
     registerUser,
     setErrorMessage,
     logingReaction,
-    rejstrationReaction,
+    registerReaction,
   };
 };
 

@@ -4,14 +4,14 @@ import TemporaryDrawer from "./TemporaryDrawer";
 import logo from "../jobsLogo.png";
 import { Link } from "react-router-dom";
 import useLogin from "../hooks/useLogin";
+import { IloginProps } from "../types/types";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { login, logout } = useLogin();
   // const [logged, setLogged] = useState(false); < po co, niepotrzebne(?) bo wystarczy że mamy locaStorage puste jeśli chodzi o "user".
-  const user: any = localStorage.getItem("user");
-  const userJSON = user !== null ? JSON.parse(user) : null;
-  console.log(userJSON);
+  const user: string | null = localStorage.getItem("user");
+  const userJSON: IloginProps | null = user !== null ? JSON.parse(user) : null;
   const hangleDrawer = () => {
     setIsOpen((prev) => !prev);
   };
@@ -26,7 +26,12 @@ const Navbar = () => {
       <div onClick={hangleDrawer} className="hidden max-lg:block">
         <MenuIcon />
       </div>
-      <TemporaryDrawer isOpen={isOpen} hangleDrawer={hangleDrawer} />
+      <TemporaryDrawer
+        isOpen={isOpen}
+        hangleDrawer={hangleDrawer}
+        userJSON={userJSON}
+        handleLogout={handleLogout}
+      />
       <ul className="flex max-lg:hidden gap-10 max-lg:gap-5 text-gray-600">
         <li>
           <a>Jobs</a>
@@ -44,8 +49,8 @@ const Navbar = () => {
           <a>Blog</a>
         </li>
         {userJSON === null ? (
-          <div>
-            <Link to={"/Login"}>
+          <div className="flex  gap-5 max-lg:gap-5 font-bold">
+            <Link to={"/login"}>
               <li>
                 <a>Login</a>
               </li>
@@ -57,7 +62,11 @@ const Navbar = () => {
             </Link>
           </div>
         ) : (
-          <button onClick={handleLogout}>Log out</button>
+          <div className=" flex gap-5 max-lg:gap-5 font-bold">
+            <h2>
+              {userJSON.email} (<button onClick={handleLogout}>Log out</button>)
+            </h2>
+          </div>
         )}
       </ul>
     </nav>
