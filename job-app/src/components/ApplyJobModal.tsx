@@ -27,11 +27,13 @@ const ApplyJobModadl = (props: any) => {
     >
       <Box sx={style}>
         {userJSON ? (
-          <div>
+          <div className="flex items-center ml-56 mt-10">
             <HorizontalLinearStepper />
           </div>
         ) : (
-          <h2>User must be logged in</h2>
+          <h2 className=" text-5xl flex items-center justify-center h-full text-blue-300 ">
+            User must be logged in.
+          </h2>
         )}
       </Box>
     </Modal>
