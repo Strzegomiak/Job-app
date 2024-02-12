@@ -40,3 +40,9 @@ export interface IRegisterInputs {
   name: string;
   password: string;
 }
+
+export interface SortFilterProps {
+  passDataFormSort: (sortValue: PropsSortValue) => void;
+  passDataFromMain: (data: IFormInput, selectValue: PropsSortValue) => void;
+  handleClearAll: () => void;
+}

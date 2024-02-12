@@ -1,13 +1,12 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { PropsSortValue, ISortInputs, IFormInput } from "../types/types";
+import {
+  PropsSortValue,
+  ISortInputs,
+  IFormInput,
+  SortFilterProps,
+} from "../types/types";
 import { useContext } from "react";
 import FavoritesFlagContex from "../context/FavoritesFlagContex";
-
-interface SortFilterProps {
-  passDataFormSort: (sortValue: PropsSortValue) => void;
-  passDataFromMain: (data: IFormInput, selectValue: PropsSortValue) => void;
-  handleClearAll: () => void;
-}
 
 const SortFilter: React.FC<SortFilterProps> = (props) => {
   const { favClicked, setFavClicked } = useContext(FavoritesFlagContex);

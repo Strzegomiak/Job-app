@@ -7,6 +7,7 @@ import StepContent from "@mui/material/StepContent";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
+import Dropzone from "react-dropzone";
 
 const steps = [
   {
@@ -74,7 +75,21 @@ export default function VerticalLinearStepper() {
               )}
               {activeStep === 3 && (
                 <Typography>
-                  <h2>BOX</h2>
+                  <Dropzone
+                    onDrop={(acceptedFiles) => console.log(acceptedFiles)}
+                  >
+                    {({ getRootProps, getInputProps }) => (
+                      <section className="bg-red-200 h-20 w-56 flex justify-center items-center">
+                        <div {...getRootProps()}>
+                          <input {...getInputProps()} />
+                          <p>
+                            Drop some files here,<br></br> or click to select
+                            files
+                          </p>
+                        </div>
+                      </section>
+                    )}
+                  </Dropzone>
                 </Typography>
               )}
               <Box sx={{ mb: 2 }}>
