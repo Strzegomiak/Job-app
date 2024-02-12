@@ -1,7 +1,10 @@
 import { Box, Modal, Typography } from "@mui/material";
 import HorizontalLinearStepper from "./HorizontalLinearStepper";
+import useSetLogin from "../hooks/useSetLogin";
 
 const ApplyJobModadl = (props: any) => {
+  const { isLogin, currentUser } = useSetLogin();
+
   const style = {
     position: "absolute" as "absolute",
     top: "50%",
@@ -15,8 +18,8 @@ const ApplyJobModadl = (props: any) => {
     p: 4,
   };
 
-  const user: any = localStorage.getItem("user");
-  const userJSON = user !== null ? JSON.parse(user) : null;
+  // const user: any = localStorage.getItem("user");
+  // const userJSON = user !== null ? JSON.parse(user) : null;
 
   return (
     <Modal
@@ -26,7 +29,7 @@ const ApplyJobModadl = (props: any) => {
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        {userJSON ? (
+        {isLogin ? (
           <div className="flex items-center ml-56 mt-10">
             <HorizontalLinearStepper />
           </div>

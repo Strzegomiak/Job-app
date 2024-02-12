@@ -5,8 +5,17 @@ import logo from "../jobsLogo.png";
 import { Link } from "react-router-dom";
 import useLogin from "../hooks/useLogin";
 import { IloginProps } from "../types/types";
+import { auth } from "../firebase";
+import useSetLogin from "../hooks/useSetLogin";
+import { onAuthStateChanged } from "firebase/auth";
 
 const Navbar = () => {
+  const { isLogin, currentUser } = useSetLogin();
+
+  console.log(currentUser);
+
+  console.log(isLogin, "currentU");
+
   const [isOpen, setIsOpen] = useState(false);
   const { login, logout } = useLogin();
   // const [logged, setLogged] = useState(false); < po co, niepotrzebne(?) bo wystarczy że mamy locaStorage puste jeśli chodzi o "user".
@@ -20,6 +29,7 @@ const Navbar = () => {
     logout();
     // setLogged(true);
   };
+
   return (
     <nav className="flex m-4 justify-between w-11/12 py-8">
       <img className="h-8" src={logo}></img>
@@ -48,7 +58,7 @@ const Navbar = () => {
         <li>
           <a>Blog</a>
         </li>
-        {userJSON === null ? (
+        {isLogin === false ? (
           <div className="flex  gap-5 max-lg:gap-5 font-bold">
             <Link to={"/login"}>
               <li>
@@ -64,7 +74,8 @@ const Navbar = () => {
         ) : (
           <div className=" flex gap-5 max-lg:gap-5 font-bold">
             <h2>
-              {userJSON.email} (<button onClick={handleLogout}>Log out</button>)
+              {currentUser.email} (
+              <button onClick={handleLogout}>Log out</button>)
             </h2>
           </div>
         )}

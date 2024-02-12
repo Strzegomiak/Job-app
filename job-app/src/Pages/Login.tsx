@@ -13,13 +13,7 @@ type Inputs = {
 };
 
 const Login = () => {
-  const {
-    errorMessage,
-    registerUser,
-    setErrorMessage,
-    logingReaction,
-    registerReaction,
-  } = useSign();
+  const { signUp, signIn } = useSign();
   const { login, logout } = useLogin();
   const navigate = useNavigate();
   const [currentUserEmail, setCurrentUserEmail] = useState<string>("");
@@ -33,24 +27,18 @@ const Login = () => {
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     console.log(data);
-    registerUser(
-      data.email,
-      data.password,
-      "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDBSpAs6VPkYnzvNlrsemvJuRStbtbjNY8",
-      "loging"
-    );
-    setErrorMessage("");
-    setCurrentUserEmail(data.email);
+    signIn(data.email, data.password);
+    // setCurrentUserEmail(data.email);
   };
 
-  if (logingReaction) {
-    const user: IloginProps = {
-      auth: true,
-      email: currentUserEmail,
-    };
-    login(user);
-    navigate("/");
-  }
+  // if (logingReaction) {
+  //   const user: IloginProps = {
+  //     auth: true,
+  //     email: currentUserEmail,
+  //   };
+  // login(user);
+  navigate("/");
+  // }
 
   const RegisterOptions = {
     email: {
@@ -101,18 +89,18 @@ const Login = () => {
           >
             Submit
           </button>
-          {errorMessage === "INVALID_EMAIL" ? (
+          {/* {errorMessage === "INVALID_EMAIL" ? (
             <h2 className="text-xl text-red-600">wrong password or email</h2>
-          ) : null}
-          {errorMessage === "INVALID_LOGIN_CREDENTIALS" ? (
+          ) : null} */}
+          {/* {errorMessage === "INVALID_LOGIN_CREDENTIALS" ? (
             <h2 className="text-xl text-red-600">wrong password or email</h2>
-          ) : null}
-          {errorMessage ===
+          ) : null} */}
+          {/* {errorMessage ===
           "TOO_MANY_ATTEMPTS_TRY_LATER : Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later." ? (
             <h2 className="text-xl text-red-600">
               too many attempts try later
             </h2>
-          ) : null}
+          ) : null} */}
         </form>
         <Link to={"/"}>
           <h2>Go back to Homepage</h2>

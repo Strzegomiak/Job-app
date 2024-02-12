@@ -6,13 +6,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const Register = () => {
-  const {
-    errorMessage,
-    registerUser,
-    setErrorMessage,
-    logingReaction,
-    registerReaction,
-  } = useSign();
+  const { signUp, signIn } = useSign();
 
   const [isRegisterOK, setIsRegisterOK] = useState(false);
 
@@ -25,20 +19,15 @@ const Register = () => {
 
   const onSubmit: SubmitHandler<IRegisterInputs> = (data) => {
     console.log("test");
-    registerUser(
-      data.email,
-      data.password,
-      "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDBSpAs6VPkYnzvNlrsemvJuRStbtbjNY8",
-      "register"
-    );
+    signUp(data.email, data.password);
     reset();
   };
 
-  useEffect(() => {
-    if (registerReaction) {
-      setIsRegisterOK(true);
-    }
-  }, [registerReaction]);
+  // useEffect(() => {
+  //   if (registerReaction) {
+  //     setIsRegisterOK(true);
+  //   }
+  // }, [registerReaction]);
 
   const RegisterOptions = {
     email: {
@@ -123,9 +112,9 @@ const Register = () => {
               >
                 Submit
               </button>
-              {errorMessage === "EMAIL_EXISTS" ? (
+              {/* {errorMessage === "EMAIL_EXISTS" ? (
                 <h2 className="text-xl text-red-600">email already in use</h2>
-              ) : null}
+              ) : null} */}
             </div>
           </form>
         ) : (
