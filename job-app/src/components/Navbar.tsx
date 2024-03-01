@@ -5,9 +5,11 @@ import logo from "../jobsLogo.png";
 import { Link } from "react-router-dom";
 import useLogin from "../hooks/useLogin";
 import { IloginProps } from "../types/types";
-import { auth } from "../firebase";
 import useSetLogin from "../hooks/useSetLogin";
 import { onAuthStateChanged } from "firebase/auth";
+import useSign from "../hooks/useSign";
+import { auth } from "../firebase";
+import { signOut } from "firebase/auth";
 
 const Navbar = () => {
   const { isLogin, currentUser } = useSetLogin();
@@ -18,6 +20,7 @@ const Navbar = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const { login, logout } = useLogin();
+  // const { signOut } = useSign();
   // const [logged, setLogged] = useState(false); < po co, niepotrzebne(?) bo wystarczy że mamy locaStorage puste jeśli chodzi o "user".
   const user: string | null = localStorage.getItem("user");
   const userJSON: IloginProps | null = user !== null ? JSON.parse(user) : null;
@@ -26,8 +29,9 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    logout();
+    // logout();
     // setLogged(true);
+    signOut(auth);
   };
 
   return (

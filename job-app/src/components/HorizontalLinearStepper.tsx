@@ -10,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import Dropzone from "react-dropzone";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
+import { Alert } from "@mui/material";
 //https://www.npmjs.com/package/react-dropzone
 
 type Inputs = {
@@ -46,6 +47,8 @@ export default function VerticalLinearStepper() {
   } = useForm<Inputs>();
 
   const handleNext = () => {
+    console.log(errors);
+    if (errors) return;
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
@@ -57,6 +60,38 @@ export default function VerticalLinearStepper() {
     setActiveStep(0);
   };
 
+  const RegisterOptions = {
+    name: {
+      required: "name is required",
+      minLength: {
+        value: 3,
+        message: "name must have at least 3 charactes ",
+      },
+    },
+    email: {
+      required: "email is required",
+      minLength: {
+        value: 3,
+        message: "email must have at least 3 charactes ",
+      },
+    },
+    phone: {
+      required: "phone is required",
+      minLength: {
+        value: 9,
+        message: "phone must have 9 charactes ",
+      },
+      maxLength: {
+        value: 9,
+        message: "phone must have 9 charactes ",
+      },
+      pattern: {
+        value: /^[0-9]*$/,
+        message: "phone must have only numbers",
+      },
+    },
+  };
+
   const onSubmit: SubmitHandler<Inputs> = (data: any) => {
     console.log(data);
     const resumeFile = {
@@ -66,6 +101,8 @@ export default function VerticalLinearStepper() {
       cv: cvFile,
     };
     console.log(resumeFile);
+    console.log("test");
+    console.log(errors);
   };
 
   return (
@@ -79,31 +116,40 @@ export default function VerticalLinearStepper() {
                 {activeStep === 0 && (
                   <Typography>
                     <input
+                      {...register("name", RegisterOptions.name)}
                       type="text"
                       placeholder="full name..."
                       className="h-12 w-72 outline-none focus:outline-none placeholder-blue-300 text-xl rounded-xl border-1 text-blue-300"
-                      {...register("name")}
                     ></input>
+                    {errors.name?.message ? (
+                      <Alert severity="error">{errors.name.message}</Alert>
+                    ) : null}
                   </Typography>
                 )}
                 {activeStep === 1 && (
                   <Typography>
                     <input
+                      {...register("email", RegisterOptions.email)}
                       type="text"
                       placeholder="e-mail..."
                       className="h-12 w-72 outline-none focus:outline-none placeholder-blue-300 text-xl rounded-xl border-1 text-blue-300"
-                      {...register("email")}
                     ></input>
+                    {errors.email?.message ? (
+                      <Alert severity="error">{errors.email.message}</Alert>
+                    ) : null}
                   </Typography>
                 )}
                 {activeStep === 2 && (
                   <Typography>
                     <input
+                      {...register("phone", RegisterOptions.phone)}
                       type="text"
                       placeholder="phone number..."
                       className="h-12 w-72 outline-none focus:outline-none placeholder-blue-300 text-xl rounded-xl border-1 text-blue-300"
-                      {...register("phone")}
                     ></input>
+                    {errors.phone?.message ? (
+                      <Alert severity="error">{errors.phone.message}</Alert>
+                    ) : null}
                   </Typography>
                 )}
                 {activeStep === 3 && (
@@ -133,25 +179,13 @@ export default function VerticalLinearStepper() {
                 )}
                 <Box sx={{ mb: 2 }}>
                   <div>
-                    {index === steps.length - 1 ? (
-                      <Button
-                        type="submit"
-                        variant="contained"
-                        onClick={handleNext}
-                        sx={{ mt: 1, mr: 1 }}
-                      >
-                        {index === steps.length - 1 ? "Finish" : "Continue"}
-                      </Button>
-                    ) : (
-                      <Button
-                        variant="contained"
-                        onClick={handleNext}
-                        sx={{ mt: 1, mr: 1 }}
-                      >
-                        {index === steps.length - 1 ? "Finish" : "Continue"}
-                      </Button>
-                    )}
-
+                    <Button
+                      variant="contained"
+                      onClick={handleNext}
+                      sx={{ mt: 1, mr: 1 }}
+                    >
+                      {index === steps.length - 1 ? "Finish" : "Continue"}
+                    </Button>
                     <Button
                       disabled={index === 0}
                       onClick={handleBack}
@@ -169,6 +203,15 @@ export default function VerticalLinearStepper() {
       {activeStep === steps.length && (
         <Paper square elevation={0} sx={{ p: 3 }}>
           <Typography>All steps completed - you&apos;re finished</Typography>
+          {errors.phone?.message ? (
+            <Alert severity="error">{errors.phone.message}</Alert>
+          ) : null}
+          {errors.name?.message ? (
+            <Alert severity="error">{errors.name.message}</Alert>
+          ) : null}
+          {errors.email?.message ? (
+            <Alert severity="error">{errors.email.message}</Alert>
+          ) : null}
           <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
             Reset
           </Button>

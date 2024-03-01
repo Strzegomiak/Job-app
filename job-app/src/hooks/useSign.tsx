@@ -2,12 +2,15 @@ import axios from "axios";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
+  getAuth,
   updateProfile,
 } from "firebase/auth";
 import { useState } from "react";
 import { auth } from "../firebase";
 
 const useSign = () => {
+  const auth = getAuth();
   const [errorMessage, setErrorMessage] = useState("");
   const [logingReaction, setLogingReaction] = useState(false);
   const [registerReaction, setregisterReaction] = useState(false);
@@ -60,6 +63,14 @@ const useSign = () => {
       .catch((error) => {
         console.log("nie udalo sie zaktualizowac nazwy");
       });
+
+    // const signOut = async () => {
+    //   try {
+    //     await signOut();
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // };
   };
   return { signUp, signIn };
 };
