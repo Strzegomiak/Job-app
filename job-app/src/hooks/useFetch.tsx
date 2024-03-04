@@ -10,6 +10,7 @@ const useFetch = () => {
     const jobOffers: IJobOffers[] = Object.values(res.data);
     return jobOffers;
   };
+
   const {
     data: jobOffers,
     isError,

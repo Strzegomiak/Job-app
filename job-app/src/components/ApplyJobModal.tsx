@@ -2,7 +2,17 @@ import { Box, Modal, Typography } from "@mui/material";
 import HorizontalLinearStepper from "./HorizontalLinearStepper";
 import useSetLogin from "../hooks/useSetLogin";
 
-const ApplyJobModadl = (props: any) => {
+type ApplyJobModalProps = {
+  isOpen: boolean;
+  closeModal: () => void;
+  applyJob: string;
+};
+
+const ApplyJobModadl: React.FC<ApplyJobModalProps> = ({
+  isOpen,
+  closeModal,
+  applyJob,
+}) => {
   const { isLogin, currentUser } = useSetLogin();
 
   const style = {
@@ -23,15 +33,15 @@ const ApplyJobModadl = (props: any) => {
 
   return (
     <Modal
-      open={props.isOpen}
-      onClose={props.closeModal}
+      open={isOpen}
+      onClose={closeModal}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
         {isLogin ? (
           <div className="flex items-center ml-56 mt-10">
-            <HorizontalLinearStepper />
+            <HorizontalLinearStepper applyJob={applyJob} />
           </div>
         ) : (
           <h2 className=" text-5xl flex items-center justify-center h-full text-blue-300 ">

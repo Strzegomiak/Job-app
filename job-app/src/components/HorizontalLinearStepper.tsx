@@ -11,6 +11,8 @@ import Dropzone from "react-dropzone";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
 import { Alert } from "@mui/material";
+import axios from "axios";
+import useSetLogin from "../hooks/useSetLogin";
 //https://www.npmjs.com/package/react-dropzone
 
 type Inputs = {
@@ -19,6 +21,10 @@ type Inputs = {
   phone: number;
   cv?: any;
 };
+
+interface HorizontalLinearStepperProps {
+  applyJob: string;
+}
 
 const steps = [
   {
@@ -35,7 +41,11 @@ const steps = [
   },
 ];
 
-export default function VerticalLinearStepper() {
+const VerticalLinearStepper: React.FC<HorizontalLinearStepperProps> = ({
+  applyJob,
+}) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { currentUser } = useSetLogin();
   const [cvFile, setCvfile] = useState<any>(null);
   const [activeStep, setActiveStep] = useState(0);
   console.log(cvFile);
@@ -43,13 +53,19 @@ export default function VerticalLinearStepper() {
     register,
     handleSubmit,
     watch,
+    trigger,
+    reset,
     formState: { errors },
   } = useForm<Inputs>();
 
-  const handleNext = () => {
-    console.log(errors);
-    if (errors) return;
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  const handleNext = async () => {
+    setIsSubmitting(true);
+    const isValid = await trigger(); // sprawdzenie walidacji
+
+    if (isValid) {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    }
+    setIsSubmitting(false);
   };
 
   const handleBack = () => {
@@ -92,6 +108,13 @@ export default function VerticalLinearStepper() {
     },
   };
 
+  const sendResumeFileToDataBase = (resumeForm: any) => {
+    axios.post(
+      "https://job-app-88989-default-rtdb.europe-west1.firebasedatabase.app/Application.json",
+      resumeForm
+    );
+  };
+
   const onSubmit: SubmitHandler<Inputs> = (data: any) => {
     console.log(data);
     const resumeFile = {
@@ -99,10 +122,14 @@ export default function VerticalLinearStepper() {
       email: data.email,
       phone: data.phone,
       cv: cvFile,
+      idUser: currentUser.id,
+      JobName: applyJob,
     };
     console.log(resumeFile);
     console.log("test");
     console.log(errors);
+    sendResumeFileToDataBase(resumeFile);
+    reset();
   };
 
   return (
@@ -180,6 +207,7 @@ export default function VerticalLinearStepper() {
                 <Box sx={{ mb: 2 }}>
                   <div>
                     <Button
+                      type={activeStep == 3 ? "submit" : "button"}
                       variant="contained"
                       onClick={handleNext}
                       sx={{ mt: 1, mr: 1 }}
@@ -219,4 +247,6 @@ export default function VerticalLinearStepper() {
       )}
     </Box>
   );
-}
+};
+
+export default VerticalLinearStepper;

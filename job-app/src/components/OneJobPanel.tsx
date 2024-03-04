@@ -14,6 +14,7 @@ const OneJobPanel: React.FC<OneJobPanelProps> = ({ singleJob }) => {
 
   const { addToFavorites, deleteFavorites } = useContext(WishListContext);
   const [isOpen, setIsOpen] = useState(false);
+  const [applyJob, setApplyJob] = useState("");
 
   const closeModal = () => {
     setIsOpen(false);
@@ -29,6 +30,12 @@ const OneJobPanel: React.FC<OneJobPanelProps> = ({ singleJob }) => {
   const handleDeleteFav = () => {
     deleteFavorites(singleJob);
   };
+
+  const handleApplyJob = () => {
+    setIsOpen(true);
+    setApplyJob(singleJob.JobName);
+  };
+
   return (
     <div className="flex flex-col shadow-lg rounded-xl">
       <div className="flex flex-col w-64 h-96 p-5 rounded-xl border-b-2 border-gray-300 justify-between">
@@ -62,14 +69,18 @@ const OneJobPanel: React.FC<OneJobPanelProps> = ({ singleJob }) => {
             <h2>{singleJob.Name}</h2>
           </Link>
           <button
-            onClick={() => setIsOpen(true)}
+            onClick={handleApplyJob}
             className="bg-white h-12 rounded-xl border-2 border-gray-300 font-bold hover:bg-blue-300"
             type="button"
           >
             Apply Now
           </button>
           {isOpen ? (
-            <ApplyJobModal isOpen={isOpen} closeModal={closeModal} />
+            <ApplyJobModal
+              isOpen={isOpen}
+              closeModal={closeModal}
+              applyJob={applyJob}
+            />
           ) : null}
         </div>
       </div>

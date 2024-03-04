@@ -77,6 +77,7 @@ const Navbar = () => {
           </div>
         ) : (
           <div className=" flex gap-5 max-lg:gap-5 font-bold">
+            <Link to={"/application"}>My application</Link>
             <h2>
               {currentUser.email} (
               <button onClick={handleLogout}>Log out</button>)

@@ -8,6 +8,7 @@ const SingleJob = () => {
   const { id } = useParams();
   const { jobOffers } = useFetch();
   const [isOpen, setIsOpen] = useState(false);
+  const [applyJob, setApplyJob] = useState("");
 
   const choosenOffer: IJobOffers | undefined = jobOffers?.find(
     (job) => job.id === Number(id)
@@ -18,6 +19,11 @@ const SingleJob = () => {
 
   const closeModal = () => {
     setIsOpen(false);
+  };
+
+  const handleApplyJob = () => {
+    setIsOpen(true);
+    setApplyJob(choosenOffer.JobName);
   };
 
   return (
@@ -52,14 +58,18 @@ const SingleJob = () => {
           <h2 className="pt-4  text-xl">{choosenOffer.Description}</h2>
         </div>
         <button
-          onClick={() => setIsOpen(true)}
+          onClick={handleApplyJob}
           className="bg-white h-12 rounded-xl border-2 border-gray-300 text-xl font-bold hover:bg-blue-300"
           type="button"
         >
           Apply Now
         </button>
         {isOpen ? (
-          <ApplyJobModal isOpen={isOpen} closeModal={closeModal} />
+          <ApplyJobModal
+            isOpen={isOpen}
+            closeModal={closeModal}
+            applyJob={applyJob}
+          />
         ) : null}
       </div>
     </div>
