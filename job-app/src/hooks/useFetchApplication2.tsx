@@ -1,22 +1,23 @@
 import axios from "axios";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 
-const useFetchApplication = () => {
+const useFetchApplication2 = () => {
+  const [application, setApplication] = useState<any>();
+
   const getApplication = async () => {
     const res = await axios.get(
       "https://job-app-88989-default-rtdb.europe-west1.firebasedatabase.app/Application.json"
     );
     const aplicationInfo = Object.values(res.data);
-    return aplicationInfo;
+    setApplication(aplicationInfo);
   };
 
-  const {
-    data: aplicationInfo,
-    isError,
-    isLoading,
-  } = useQuery<any>("jobOffers", getApplication);
+  useEffect(() => {
+    getApplication();
+  }, []);
 
-  return { aplicationInfo, isError, isLoading };
+  return { application };
 };
 
-export default useFetchApplication;
+export default useFetchApplication2;

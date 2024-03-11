@@ -8,71 +8,39 @@ import {
 } from "firebase/auth";
 import { useState } from "react";
 import { auth } from "../firebase";
+import { useNavigate } from "react-router-dom";
 
 const useSign = () => {
   const auth = getAuth();
-  const [errorMessage, setErrorMessage] = useState("");
-  const [logingReaction, setLogingReaction] = useState(false);
-  const [registerReaction, setregisterReaction] = useState(false);
-  // const registerUser = async (
-  //   email: string,
-  //   password: string,
-  //   url: string,
-  //   operationType: string
-  // ) => {
-  //   try {
-  //     const res = await axios.post(url, {
-  //       email,
-  //       password,
-  //       returnSecureToken: true,
-  //     });
-  //     if (operationType === "loging") {
-  //       setLogingReaction(true);
-  //     } else if (operationType === "register") {
-  //       setregisterReaction(true);
-  //     }
-  //     console.log(res);
-  //   } catch (ex: any) {
-  //     console.log(ex);
-  //     setErrorMessage(ex.response.data.error.message);
-  //   }
-  // };
-  // return {
-  //   errorMessage,
-  //   registerUser,
-  //   setErrorMessage,
-  //   logingReaction,
-  //   registerReaction,
-  // };
+  const [errorMessage, setErrorMessage] = useState("error");
+  const [errorMessageSignUp, setErrorMessageSignUp] = useState("error");
+
+  const navigate = useNavigate();
+
   const signIn = (email: string, password: string) => {
+    setErrorMessage("");
     signInWithEmailAndPassword(auth, email, password)
-      .then(() => {})
+      .then(() => {
+        setErrorMessage("");
+        navigate("/");
+      })
       .catch((error) => {
-        console.log(error);
+        setErrorMessage("nieprawidolew dane logowania");
       });
   };
   const signUp = (email: string, password: string) => {
     createUserWithEmailAndPassword(auth, email, password)
-      // .then((usercredential) => {
-      // updateProfile(usercredential.user, {
-      //   displayName: name,
-      //   photoURL:
-      //     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png",
-      // })
-      .then(() => {})
-      .catch((error) => {
-        console.log("nie udalo sie zaktualizowac nazwy");
+      .then(() => {
+        setErrorMessageSignUp("");
+        navigate("/");
+      })
+      .catch((error: any) => {
+        console.log(error.message);
+        const errorMessageSlice = error.message.slice(16);
+        setErrorMessageSignUp(errorMessageSlice);
       });
-
-    // const signOut = async () => {
-    //   try {
-    //     await signOut();
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // };
   };
-  return { signUp, signIn };
+  return { signUp, signIn, errorMessage, errorMessageSignUp };
 };
 
 export default useSign;

@@ -1,25 +1,35 @@
-import { useEffect } from "react";
-import useFetchApplication from "../hooks/useFetchApplication";
+import { useEffect, useState } from "react";
 import useSetLogin from "../hooks/useSetLogin";
+import { Link } from "react-router-dom";
+import useFetchApplication2 from "../hooks/useFetchApplication2";
 
 const Application = () => {
-  const { aplicationInfo, isError, isLoading } = useFetchApplication();
+  const { application } = useFetchApplication2();
   const { currentUser } = useSetLogin();
-  useEffect(() => {
-    if (!isLoading) {
-      const userApplication = aplicationInfo.filter(
-        (x: any) => x.idUser == currentUser.id
-      );
-      console.log(userApplication);
-    }
-  }, [isLoading]);
+  const [userApplication, setUserApplication] = useState<any>([]);
 
-  if (isLoading) return <h2>Loading</h2>;
-  console.log(isLoading);
+  useEffect(() => {
+    if (application) {
+      const filteredApplications = application.filter(
+        (x: any) => x.idUser === currentUser.id
+      );
+      setUserApplication(filteredApplications);
+    }
+  }, [application]);
+
+  console.log(userApplication);
 
   return (
     <div>
-      <h2>My application</h2>
+      <h2>My Application List:</h2>
+      <h2>
+        {userApplication.length > 0
+          ? userApplication.map((x: any) => x.JobName)
+          : "no offers"}
+      </h2>
+      <Link to={"/"}>
+        <h2>Go back to Homepage</h2>
+      </Link>
     </div>
   );
 };

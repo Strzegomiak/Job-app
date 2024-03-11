@@ -4,7 +4,7 @@ import useSign from "../hooks/useSign";
 import useLogin from "../hooks/useLogin";
 import { useNavigate, Link } from "react-router-dom";
 import { Alert } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IloginProps } from "../types/types";
 
 type Inputs = {
@@ -13,10 +13,11 @@ type Inputs = {
 };
 
 const Login = () => {
-  const { signUp, signIn } = useSign();
+  const { signUp, signIn, errorMessage } = useSign();
   const { login, logout } = useLogin();
   const navigate = useNavigate();
   const [currentUserEmail, setCurrentUserEmail] = useState<string>("");
+  const [islogin, setIslogin] = useState(true);
 
   const {
     register,
@@ -28,17 +29,8 @@ const Login = () => {
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     console.log(data);
     signIn(data.email, data.password);
-    // setCurrentUserEmail(data.email);
+    setIslogin((prev) => !prev);
   };
-
-  // if (logingReaction) {
-  //   const user: IloginProps = {
-  //     auth: true,
-  //     email: currentUserEmail,
-  //   };
-  // login(user);
-  navigate("/");
-  // }
 
   const RegisterOptions = {
     email: {
@@ -89,22 +81,13 @@ const Login = () => {
           >
             Submit
           </button>
-          {/* {errorMessage === "INVALID_EMAIL" ? (
-            <h2 className="text-xl text-red-600">wrong password or email</h2>
-          ) : null} */}
-          {/* {errorMessage === "INVALID_LOGIN_CREDENTIALS" ? (
-            <h2 className="text-xl text-red-600">wrong password or email</h2>
-          ) : null} */}
-          {/* {errorMessage ===
-          "TOO_MANY_ATTEMPTS_TRY_LATER : Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later." ? (
-            <h2 className="text-xl text-red-600">
-              too many attempts try later
-            </h2>
-          ) : null} */}
         </form>
         <Link to={"/"}>
           <h2>Go back to Homepage</h2>
         </Link>
+        {errorMessage && errorMessage !== "error" ? (
+          <Alert severity="error">{errorMessage}</Alert>
+        ) : null}
       </div>
     </div>
   );

@@ -2,13 +2,19 @@ import { Alert } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
 import useSign from "../hooks/useSign";
 import { IRegisterInputs } from "../types/types";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const Register = () => {
-  const { signUp, signIn } = useSign();
-
+  const { signUp, signIn, errorMessageSignUp } = useSign();
   const [isRegisterOK, setIsRegisterOK] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!errorMessageSignUp) {
+      navigate("/");
+    }
+  }, [errorMessageSignUp]);
 
   const {
     register,
@@ -22,12 +28,6 @@ const Register = () => {
     signUp(data.email, data.password);
     reset();
   };
-
-  // useEffect(() => {
-  //   if (registerReaction) {
-  //     setIsRegisterOK(true);
-  //   }
-  // }, [registerReaction]);
 
   const RegisterOptions = {
     email: {
@@ -127,6 +127,9 @@ const Register = () => {
         <Link to={"/"}>
           <h2>Go back to Homepage</h2>
         </Link>
+        {errorMessageSignUp && errorMessageSignUp !== "error" ? (
+          <Alert severity="error">{errorMessageSignUp}</Alert>
+        ) : null}
       </div>
     </div>
   );
