@@ -1,7 +1,6 @@
 import logo from "../jobsLogo.png";
 import { SubmitHandler, useForm } from "react-hook-form";
 import useSign from "../hooks/useSign";
-import useLogin from "../hooks/useLogin";
 import { useNavigate, Link } from "react-router-dom";
 import { Alert } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -14,7 +13,6 @@ type Inputs = {
 
 const Login = () => {
   const { signUp, signIn, errorMessage } = useSign();
-  const { login, logout } = useLogin();
   const navigate = useNavigate();
   const [currentUserEmail, setCurrentUserEmail] = useState<string>("");
   const [islogin, setIslogin] = useState(true);

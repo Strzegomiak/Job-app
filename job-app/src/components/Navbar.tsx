@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import TemporaryDrawer from "./TemporaryDrawer";
 import logo from "../jobsLogo.png";
 import { Link } from "react-router-dom";
-import useLogin from "../hooks/useLogin";
 import { IloginProps } from "../types/types";
 import useSetLogin from "../hooks/useSetLogin";
 import { onAuthStateChanged } from "firebase/auth";
@@ -13,15 +12,10 @@ import { signOut } from "firebase/auth";
 
 const Navbar = () => {
   const { isLogin, currentUser } = useSetLogin();
-
   console.log(currentUser);
-
   console.log(isLogin, "currentU");
 
   const [isOpen, setIsOpen] = useState(false);
-  const { login, logout } = useLogin();
-  // const { signOut } = useSign();
-  // const [logged, setLogged] = useState(false); < po co, niepotrzebne(?) bo wystarczy że mamy locaStorage puste jeśli chodzi o "user".
   const user: string | null = localStorage.getItem("user");
   const userJSON: IloginProps | null = user !== null ? JSON.parse(user) : null;
   const hangleDrawer = () => {
@@ -29,8 +23,6 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    // logout();
-    // setLogged(true);
     signOut(auth);
   };
 

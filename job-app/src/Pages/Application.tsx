@@ -20,16 +20,18 @@ const Application = () => {
   console.log(userApplication);
 
   return (
-    <div>
-      <h2>My Application List:</h2>
-      <h2>
-        {userApplication.length > 0
-          ? userApplication.map((x: any) => x.JobName)
-          : "no offers"}
-      </h2>
-      <Link to={"/"}>
-        <h2>Go back to Homepage</h2>
-      </Link>
+    <div className="flex items-center justify-center w-screen h-screen bg-blue-600">
+      <div className="flex flex-col items-center justify-center min-w-80 w-1/4 h-1/2 shadow-lg rounded-xl p-6 border-gray-300 bg-white gap-12">
+        <h1 className="text-4xl text-blue-600 mb-5">My Application List:</h1>
+        <h2 className="text-3xl text-blue-600 mb-5">
+          {userApplication.length > 0
+            ? userApplication.map((x: any) => `${x.JobName}, `)
+            : "no offers"}
+        </h2>
+        <Link to={"/"}>
+          <h2>Go back to Homepage</h2>
+        </Link>
+      </div>
     </div>
   );
 };
