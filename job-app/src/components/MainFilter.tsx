@@ -3,8 +3,9 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import { SubmitHandler, useForm } from "react-hook-form";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { IFormInput, PropsSortValue } from "../types/types";
+import InputSortContext from "../context/InputSortContext";
 
 interface MainFIlterProps {
   passDataFromMain: (data: IFormInput, selectValue: PropsSortValue) => void;
@@ -21,8 +22,16 @@ const MainFilter: React.FC<MainFIlterProps> = (props) => {
     reset,
   } = useForm<IFormInput>();
 
+  const { selectValue, setSelectValue, inputValue, setInputValue } =
+    useContext(InputSortContext);
+
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     props.passDataFromMain(data, props.selectValue);
+    setInputValue({
+      title: data.title,
+      company: data.company,
+      location: data.location,
+    });
   };
 
   const handleReset = (fieldNames: string[]) => {

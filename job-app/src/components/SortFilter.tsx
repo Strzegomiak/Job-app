@@ -7,9 +7,12 @@ import {
 } from "../types/types";
 import { useContext } from "react";
 import FavoritesFlagContex from "../context/FavoritesFlagContex";
+import InputSortContext from "../context/InputSortContext";
 
 const SortFilter: React.FC<SortFilterProps> = (props) => {
   const { favClicked, setFavClicked } = useContext(FavoritesFlagContex);
+  const { selectValue, setSelectValue, inputValue, setInputValue } =
+    useContext(InputSortContext);
 
   const {
     register,
@@ -21,6 +24,11 @@ const SortFilter: React.FC<SortFilterProps> = (props) => {
 
   const onSubmit: SubmitHandler<ISortInputs> = (data) => {
     props.passDataFormSort(data);
+    setSelectValue({
+      categories: data.categories,
+      type: data.type,
+      level: data.level,
+    });
   };
 
   const handleReset = (fieldNames: string[]) => {
