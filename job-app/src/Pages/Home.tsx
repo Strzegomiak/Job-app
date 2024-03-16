@@ -7,134 +7,19 @@ import { IFormInput, IJobOffers, PropsSortValue } from "../types/types";
 import FavoritesFlagContex from "../context/FavoritesFlagContex";
 import FavoritesPanel from "../components/FavoritesPanel";
 import WishListContext from "../context/WishListContext";
+import useFilterOffersAndFav from "../hooks/useFilterOffersAndFav";
 
 const Home = () => {
   const { favClicked } = useContext(FavoritesFlagContex);
-  const { favOffers } = useContext(WishListContext);
-  const { jobOffers }: { jobOffers: IJobOffers[] | undefined } = useFetch();
-  const [copyOfJobOffers, setCopyOfJobOffers] = useState<
-    IJobOffers[] | undefined
-  >(jobOffers);
-  const [copyOfFavOffers, setCopyOfFavOffers] =
-    useState<IJobOffers[]>(favOffers);
+  const { copyOfFavOffers, copyOfJobOffers } = useFilterOffersAndFav();
 
-  useEffect(() => {
-    setCopyOfJobOffers(jobOffers);
-  }, [jobOffers]);
-
-  useEffect(() => {
-    setCopyOfFavOffers(favOffers);
-  }, [favOffers]);
-
-  const passDataFromMain = (
-    inputVaue: IFormInput,
-    sortValue: PropsSortValue
-  ) => {
-    let copyOfJobOffers = jobOffers ? [...jobOffers] : [];
-    let copyOfFavOffers = favOffers ? [...favOffers] : [];
-
-    if (!copyOfJobOffers) {
-      // Obsługa przypadku, gdy jobOffers jest undefined
-      return [];
-    }
-
-    if (inputVaue.title) {
-      copyOfJobOffers = copyOfJobOffers?.filter((singleOffer: IJobOffers) => {
-        return singleOffer.JobName.toUpperCase().includes(
-          inputVaue.title.toUpperCase()
-        );
-      });
-      if (copyOfFavOffers.length > 0) {
-        copyOfFavOffers = copyOfFavOffers?.filter((singleOffer: IJobOffers) => {
-          return singleOffer.JobName.toUpperCase().includes(
-            inputVaue.title.toUpperCase()
-          );
-        });
-      }
-    }
-    if (inputVaue.company) {
-      copyOfJobOffers = copyOfJobOffers?.filter((singleOffer: IJobOffers) => {
-        return singleOffer.Name.toUpperCase().includes(
-          inputVaue.company.toUpperCase()
-        );
-      });
-      if (copyOfFavOffers.length > 0) {
-        copyOfFavOffers = copyOfFavOffers?.filter((singleOffer: IJobOffers) => {
-          return singleOffer.Name.toUpperCase().includes(
-            inputVaue.company.toUpperCase()
-          );
-        });
-      }
-    }
-    if (inputVaue.location) {
-      copyOfJobOffers = copyOfJobOffers?.filter((singleOffer: IJobOffers) => {
-        return singleOffer.country
-          .toUpperCase()
-          .includes(inputVaue.location.toUpperCase());
-      });
-      if (copyOfFavOffers.length > 0) {
-        copyOfFavOffers = copyOfFavOffers?.filter((singleOffer: IJobOffers) => {
-          return singleOffer.country
-            .toUpperCase()
-            .includes(inputVaue.location.toUpperCase());
-        });
-      }
-    }
-    if (sortValue.categories) {
-      copyOfJobOffers = copyOfJobOffers?.filter((singleOffer: IJobOffers) => {
-        return singleOffer.Categories.toUpperCase().includes(
-          sortValue.categories.toUpperCase()
-        );
-      });
-      if (copyOfFavOffers.length > 0) {
-        copyOfFavOffers = copyOfFavOffers?.filter((singleOffer: IJobOffers) => {
-          return singleOffer.Categories.toUpperCase().includes(
-            sortValue.categories.toUpperCase()
-          );
-        });
-      }
-    }
-
-    if (sortValue.type) {
-      copyOfJobOffers = copyOfJobOffers?.filter((singleOffer: IJobOffers) => {
-        return singleOffer.Type.toUpperCase().includes(
-          sortValue.type.toUpperCase()
-        );
-      });
-      if (copyOfFavOffers.length > 0) {
-        copyOfFavOffers = copyOfFavOffers?.filter((singleOffer: IJobOffers) => {
-          return singleOffer.Type.toUpperCase().includes(
-            sortValue.type.toUpperCase()
-          );
-        });
-      }
-    }
-
-    if (sortValue.level) {
-      copyOfJobOffers = copyOfJobOffers?.filter((singleOffer: IJobOffers) => {
-        return singleOffer.levelOfExpirience
-          .toUpperCase()
-          .includes(sortValue.level.toUpperCase());
-      });
-      if (copyOfFavOffers.length > 0) {
-        copyOfFavOffers = copyOfFavOffers?.filter((singleOffer: IJobOffers) => {
-          return singleOffer.levelOfExpirience
-            .toUpperCase()
-            .includes(sortValue.level.toUpperCase());
-        });
-      }
-    }
-
-    setCopyOfJobOffers(copyOfJobOffers);
-    setCopyOfFavOffers(copyOfFavOffers);
-  };
   return (
     <div
       style={{ minHeight: "1000px" }}
       className="flex justify-center items-center flex-col mr-36 ml-36 "
     >
       <Navbar />
-      <FilterBox passDataFromMain={passDataFromMain} />
+      <FilterBox />
       {favClicked ? (
         <FavoritesPanel copyOfFavOffers={copyOfFavOffers} />
       ) : (

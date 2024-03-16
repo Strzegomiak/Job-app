@@ -8,8 +8,6 @@ import { IFormInput, PropsSortValue } from "../types/types";
 import InputSortContext from "../context/InputSortContext";
 
 interface MainFIlterProps {
-  passDataFromMain: (data: IFormInput, selectValue: PropsSortValue) => void;
-  selectValue: PropsSortValue;
   isClearAllButtonClilked: boolean;
   setIsClearAllButtonClilked: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -26,7 +24,6 @@ const MainFilter: React.FC<MainFIlterProps> = (props) => {
     useContext(InputSortContext);
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    props.passDataFromMain(data, props.selectValue);
     setInputValue({
       title: data.title,
       company: data.company,

@@ -23,7 +23,6 @@ const SortFilter: React.FC<SortFilterProps> = (props) => {
   } = useForm<ISortInputs>();
 
   const onSubmit: SubmitHandler<ISortInputs> = (data) => {
-    props.passDataFormSort(data);
     setSelectValue({
       categories: data.categories,
       type: data.type,
@@ -37,10 +36,17 @@ const SortFilter: React.FC<SortFilterProps> = (props) => {
       resetValues[fieldName] = "";
     });
     reset(resetValues);
-    props.passDataFromMain(
-      { title: "", company: "", location: "" },
-      { categories: "", type: "", level: "" }
-    );
+    setSelectValue({
+      categories: "",
+      type: "",
+      level: "",
+    });
+    setInputValue({
+      title: "",
+      company: "",
+      location: "",
+    });
+
     props.handleClearAll();
   };
 
