@@ -70,6 +70,7 @@ const Navbar = () => {
         ) : (
           <div className=" flex gap-5 max-lg:gap-5 font-bold">
             <Link to={"/application"}>My application</Link>
+            <Link to={"/stats"}>Stats</Link>
             <h2>
               {currentUser.email} (
               <button onClick={handleLogout}>Log out</button>)

@@ -10,7 +10,7 @@ const SingleJob = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [applyJob, setApplyJob] = useState("");
 
-  const choosenOffer: IJobOffers | undefined = jobOffers?.find(
+  const choosenOffer: any | undefined = jobOffers?.find(
     (job) => job.id === Number(id)
   );
   if (!choosenOffer) {
@@ -23,7 +23,7 @@ const SingleJob = () => {
 
   const handleApplyJob = () => {
     setIsOpen(true);
-    setApplyJob(choosenOffer.JobName);
+    setApplyJob(choosenOffer);
   };
 
   return (

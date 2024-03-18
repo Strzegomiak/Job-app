@@ -6,7 +6,7 @@ import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import ApplyJobModal from "./ApplyJobModal";
 
 interface OneJobPanelProps {
-  singleJob: IJobOffers;
+  singleJob: any;
 }
 
 const OneJobPanel: React.FC<OneJobPanelProps> = ({ singleJob }) => {
@@ -33,7 +33,7 @@ const OneJobPanel: React.FC<OneJobPanelProps> = ({ singleJob }) => {
 
   const handleApplyJob = () => {
     setIsOpen(true);
-    setApplyJob(singleJob.JobName);
+    setApplyJob(singleJob);
   };
 
   return (

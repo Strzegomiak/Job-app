@@ -8,6 +8,7 @@ import { WishListProvider } from "./context/WishListContext";
 import { FavoritesFlagProvider } from "./context/FavoritesFlagContex";
 import Application from "./Pages/Application";
 import { InputSortProvider } from "./context/InputSortContext";
+import Stat from "./Pages/Stat";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/offer/:id" element={<SingleJob />} />
                 <Route path="/application" element={<Application />} />
+                <Route path="/stats" element={<Stat />} />
               </Routes>
             </BrowserRouter>
           </WishListProvider>

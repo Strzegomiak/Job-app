@@ -13,6 +13,7 @@ import { useState } from "react";
 import { Alert } from "@mui/material";
 import axios from "axios";
 import useSetLogin from "../hooks/useSetLogin";
+import SingleJob from "../Pages/SingleJob";
 //https://www.npmjs.com/package/react-dropzone
 
 type Inputs = {
@@ -20,10 +21,11 @@ type Inputs = {
   email: string;
   phone: number;
   cv?: any;
+  idUser: string;
 };
 
 interface HorizontalLinearStepperProps {
-  applyJob: string;
+  applyJob: any;
 }
 
 const steps = [
@@ -123,7 +125,8 @@ const VerticalLinearStepper: React.FC<HorizontalLinearStepperProps> = ({
       phone: data.phone,
       cv: cvFile,
       idUser: currentUser.id,
-      JobName: applyJob,
+      JobName: applyJob.JobName,
+      Categories: applyJob.Categories,
     };
     console.log(resumeFile);
     console.log("test");
@@ -131,6 +134,7 @@ const VerticalLinearStepper: React.FC<HorizontalLinearStepperProps> = ({
     sendResumeFileToDataBase(resumeFile);
     reset();
   };
+  console.log(applyJob, "sss");
 
   return (
     <Box sx={{ maxWidth: 400 }}>
